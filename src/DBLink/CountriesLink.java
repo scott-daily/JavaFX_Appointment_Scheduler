@@ -1,7 +1,7 @@
 package DBLink;
 
 import utils.DBConnection;
-import models.Countries;
+import models.Country;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -9,9 +9,9 @@ import java.sql.*;
 
 public class CountriesLink {
 
-    public static ObservableList<Countries> getAllCountries() {
+    public static ObservableList<Country> getAllCountries() {
 
-        ObservableList<Countries> countryList = FXCollections.observableArrayList();
+        ObservableList<Country> countryList = FXCollections.observableArrayList();
 
         try {
             String sql = "SELECT * from countries";
@@ -23,7 +23,7 @@ public class CountriesLink {
             while (rs.next()) {
                 int countryId = rs.getInt("Country_ID");
                 String countryName = rs.getString("Country");
-                Countries country = new Countries(countryId, countryName);
+                Country country = new Country(countryId, countryName);
                 countryList.add(country);
 
             }
