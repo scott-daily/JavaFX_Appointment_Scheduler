@@ -12,7 +12,7 @@ public class DBConnection {
     private static final String dbName = "WJ08dzx";
 
     private static final String jbdcURL = protocol + vendor + url + dbName;
-    private static final String mySQLJBCDriver = "com.mysql.jbdc.Driver";
+    private static final String mySQLJBCDriver = "com.mysql.cj.jdbc.Driver";
 
     private static final String username = "U08dzx";
     private static Connection dbConnection = null;
@@ -20,7 +20,7 @@ public class DBConnection {
     public static Connection openConnection() {
         try {
             Class.forName(mySQLJBCDriver);
-            dbConnection = DriverManager.getConnection(jbdcURL, username, Password.getPassword());
+            dbConnection = DriverManager.getConnection(jbdcURL, username, "53689261945");
 
             System.out.println("Connection successful");
         } catch (SQLException | ClassNotFoundException e) {

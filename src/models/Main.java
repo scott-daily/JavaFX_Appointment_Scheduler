@@ -7,18 +7,24 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utils.DBConnection;
 
+import java.util.Locale;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("views/Login.fxml"));
+        if (Locale.getDefault().getLanguage().equals("fr")) {
+            primaryStage.setTitle("écran de connexion");
+        } else {
+            primaryStage.setTitle("Login Screen");
+        }
+        primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
     }
 
     public static void main(String[] args) {
-        // Locale.setDefault(new Locale("fr"));   <--- Way to test different Locale in program
+        Locale.setDefault(new Locale("fr"));  // <--- Way to test different Locale in program
         DBConnection.openConnection();
         Application.launch(args);
         try {
