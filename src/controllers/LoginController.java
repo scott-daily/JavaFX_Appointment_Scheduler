@@ -1,5 +1,7 @@
 package controllers;
 
+import DBLink.CountriesLink;
+import DBLink.UsersLink;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.collections.ObservableList;
@@ -9,9 +11,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import models.Country;
 import models.Main;
+import models.User;
+import utils.ControlData;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -59,8 +69,38 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    public void onClickLogin() {
+    public void onClickLogin() throws IOException {
         System.out.println("Clicked login");
+
+        /*ObservableList<Country> countryList= CountriesLink.getAllCountries();
+
+        for (Country country : countryList) {
+            System.out.println(country.getName());
+        }*/
+        ObservableList<User> userList= UsersLink.getAllUsers();
+
+        for (User user : userList) {
+            if (user.getUserName().equals(username.getText())) {
+                if (user.getUserPassword().equals(password.getText())) {
+                    ControlData.setCurrentUser(user);
+                    FileWriter writer = new FileWriter("login_activity.txt", true);
+                    ZonedDateTime utc = ZonedDateTime.now(ZoneOffset.UTC);
+                    String logEntry = "User " + user.getUserName() + " successfully logged in at " + utc.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " UTC";
+                    writer.write(logEntry);
+                    writer.write('\n');
+                    writer.close();
+                }
+                else {
+                    FileWriter writer = new FileWriter("login_activity.txt", true);
+                    ZonedDateTime utc = ZonedDateTime.now(ZoneOffset.UTC);
+                    String logEntry = "User " + user.getUserName() + " provided an invalid password at " + utc.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " UTC";
+                    writer.write(logEntry);
+                    writer.write('\n');
+                    writer.close();
+                }
+            }
+        }
+        //System.out.println(ControlData.getCurrentUser().getUserId());
     }
 
     @FXML
