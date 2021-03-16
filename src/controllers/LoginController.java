@@ -19,6 +19,7 @@ import utils.ControlData;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -100,6 +101,8 @@ public class LoginController implements Initializable {
                 }
             }
         }
+        LocalDateTime localTime = LocalDateTime.now();
+        System.out.println(localTime);
         //System.out.println(ControlData.getCurrentUser().getUserId());
     }
 
