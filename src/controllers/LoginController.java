@@ -28,6 +28,9 @@ public class LoginController implements Initializable {
     private Label loginTitle;
 
     @FXML
+    private Label regionLabel;
+
+    @FXML
     private Button signinButton;
 
     @FXML
@@ -43,6 +46,7 @@ public class LoginController implements Initializable {
                     loginTitle.setLayoutX(135.0);
                     signinButton.setLayoutX(300.0);
                 }
+                regionLabel.setText(rb.getString("regionLabel"));
                 username.setText(rb.getString("userName"));
                 password.setText(rb.getString("password"));
                 signinButton.setText(rb.getString("login"));
