@@ -1,5 +1,6 @@
 package controllers;
 
+import DBLink.AppointmentsLink;
 import DBLink.CountriesLink;
 import DBLink.UsersLink;
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import models.Appointment;
 import models.Country;
 import models.Main;
 import models.User;
@@ -19,13 +21,14 @@ import utils.ControlData;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import java.sql.Timestamp;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.Temporal;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class LoginController implements Initializable {
 
@@ -71,13 +74,31 @@ public class LoginController implements Initializable {
 
     @FXML
     public void onClickLogin() throws IOException {
-        System.out.println("Clicked login");
 
-        /*ObservableList<Country> countryList= CountriesLink.getAllCountries();
+        ObservableList<Appointment> appointmentList = AppointmentsLink.getAllAppointments();
 
-        for (Country country : countryList) {
-            System.out.println(country.getName());
+        for (Appointment appointment : appointmentList) {
+            if (appointment.getUserID() == )
+            LocalDateTime startTimeLocal = appointment.getStart();
+            LocalDateTime timeAus = ControlData.localToAus(startTimeLocal);
+            LocalDateTime timeUTC = ControlData.localToUTC(startTimeLocal);
+            LocalDateTime timeEST = ControlData.localToEST(startTimeLocal);
+            System.out.println("local date time from getStart(): " + startTimeLocal);
+            System.out.println("Time in UTC: " + timeUTC);
+            System.out.println("Time in Australia/Sydney Time: " + timeAus);
+            System.out.println("Time in EST: " + timeEST);
+            LocalDateTime now = LocalDateTime.now();
+            Duration duration = Duration.between(startTimeLocal, now);
+            System.out.println("Time now is: " + now);
+            System.out.println("Duration between: " + duration.toMinutes());
+        }
+
+        /*Set<String> zoneIds= ZoneId.getAvailableZoneIds();
+
+        for (String zone : zoneIds) {
+            System.out.println(zone);
         }*/
+
         ObservableList<User> userList= UsersLink.getAllUsers();
 
         for (User user : userList) {
@@ -101,8 +122,8 @@ public class LoginController implements Initializable {
                 }
             }
         }
-        LocalDateTime localTime = LocalDateTime.now();
-        System.out.println(localTime);
+        //LocalDateTime localTime = LocalDateTime.now();
+        //System.out.println(localTime);
         //System.out.println(ControlData.getCurrentUser().getUserId());
     }
 
