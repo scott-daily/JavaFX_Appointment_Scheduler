@@ -28,10 +28,10 @@ public class AppointmentsLink {
                 String location = rs.getString("Location");
                 String type = rs.getString("Type");
                 Timestamp start = rs.getTimestamp("Start");
-                LocalDateTime end = rs.getObject("End", LocalDateTime.class);
-                LocalDateTime createDate = rs.getObject("Create_Date", LocalDateTime.class);
+                Timestamp end = rs.getTimestamp("End");
+                Timestamp createDate = rs.getTimestamp("Create_Date");
                 String createBy = rs.getString("Created_By");
-                LocalDateTime lastUpdate = rs.getObject("Last_Update", LocalDateTime.class);
+                Timestamp lastUpdate = rs.getTimestamp("Last_Update");
                 String updateBy = rs.getString("Last_Updated_By");
                 int customerID = rs.getInt("Customer_ID");
                 int userID = rs.getInt("User_ID");
@@ -43,5 +43,32 @@ public class AppointmentsLink {
             e.printStackTrace();
         }
         return appointmentList;
+    }
+
+    public static void addAppointment(Appointment appointment) {
+
+        String sql = "INSERT INTO appointments(Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql)) {
+
+            ps.setInt(1,appointment.getAppointmentID());
+            ps.setString(2, appointment.getTitle());
+            ps.setString(3, appointment.getDescription());
+            ps.setString(4, appointment.getLocation());
+            ps.setString(5, appointment.getType());
+            ps.setTimestamp(6, appointment.getStart());
+            ps.setTimestamp(7, appointment.getEnd());
+            ps.setTimestamp(8, appointment.getCreateDate());
+            ps.setString(9,appointment.getCreateBy());
+            ps.setTimestamp(10, appointment.getLastUpdate());
+            ps.setString(11, appointment.getUpdateBy());
+            ps.setInt(12,appointment.getCustomerID());
+            ps.setInt(13, appointment.getUserID());
+            ps.setInt(14, appointment.getContactID());
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

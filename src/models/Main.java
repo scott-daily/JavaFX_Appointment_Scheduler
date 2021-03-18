@@ -24,7 +24,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        Locale.setDefault(new Locale("fr"));  // <--- Way to test different Locale in program
+        //Locale.setDefault(new Locale("fr"));  // <--- Way to test different Locale in program
         DBConnection.openConnection();
         Application.launch(args);
         try {

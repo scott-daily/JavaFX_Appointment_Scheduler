@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 public class Appointment {
@@ -10,16 +11,16 @@ public class Appointment {
     private String location;
     private String type;
     private Timestamp start;
-    private LocalDateTime end;
-    private LocalDateTime createDate;
+    private Timestamp end;
+    private Timestamp createDate;
     private String createBy;
-    private LocalDateTime lastUpdate;
+    private Timestamp lastUpdate;
     private String updateBy;
     private int customerID;
     private int userID;
     private int contactID;
 
-    public Appointment(int appointmentID, String title, String description, String location, String type, Timestamp start, LocalDateTime end, LocalDateTime createDate, String createBy, LocalDateTime lastUpdate, String updateBy, int customerID, int userID, int contactID) {
+    public Appointment(int appointmentID, String title, String description, String location, String type, Timestamp start, Timestamp end, Timestamp createDate, String createBy, Timestamp lastUpdate, String updateBy, int customerID, int userID, int contactID) {
         this.appointmentID = appointmentID;
         this.title = title;
         this.description = description;
@@ -76,27 +77,27 @@ public class Appointment {
         this.type = type;
     }
 
-    public LocalDateTime getStart() {
-        return start.toLocalDateTime();
+    public Timestamp getStart() {
+        return start;
     }
 
     public void setStart(Timestamp start) {
         this.start = start;
     }
 
-    public LocalDateTime getEnd() {
+    public Timestamp getEnd() {
         return end;
     }
 
-    public void setEnd(LocalDateTime end) {
+    public void setEnd(Timestamp end) {
         this.end = end;
     }
 
-    public LocalDateTime getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(LocalDateTime createDate) {
+    public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
     }
 
@@ -108,11 +109,11 @@ public class Appointment {
         this.createBy = createBy;
     }
 
-    public LocalDateTime getLastUpdate() {
+    public Timestamp getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(LocalDateTime lastUpdate) {
+    public void setLastUpdate(Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 

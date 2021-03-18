@@ -4,6 +4,7 @@ import models.User;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class ControlData {
 
@@ -15,6 +16,11 @@ public class ControlData {
 
     public static User getCurrentUser() {
         return currentUser;
+    }
+
+    public static LocalDateTime timeStringToDateTime(String timeString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return LocalDateTime.parse(timeString, formatter);
     }
 
     public static LocalDateTime localToEST(LocalDateTime localTime) {

@@ -60,7 +60,6 @@ public class LoginController implements Initializable {
                     loginTitle.setLayoutX(135.0);
                     signinButton.setLayoutX(300.0);
                 }
-                regionLabel.setText(rb.getString("regionLabel"));
                 username.setText(rb.getString("userName"));
                 password.setText(rb.getString("password"));
                 signinButton.setText(rb.getString("login"));
@@ -70,36 +69,15 @@ public class LoginController implements Initializable {
         } catch (MissingResourceException e) {
             e.printStackTrace();
         }
+
+        ZoneId zoneId = ZoneId.systemDefault();
+        regionLabel.setText(zoneId.toString());
     }
 
     @FXML
     public void onClickLogin() throws IOException {
 
-        ObservableList<Appointment> appointmentList = AppointmentsLink.getAllAppointments();
-
-        for (Appointment appointment : appointmentList) {
-            if (appointment.getUserID() == )
-            LocalDateTime startTimeLocal = appointment.getStart();
-            LocalDateTime timeAus = ControlData.localToAus(startTimeLocal);
-            LocalDateTime timeUTC = ControlData.localToUTC(startTimeLocal);
-            LocalDateTime timeEST = ControlData.localToEST(startTimeLocal);
-            System.out.println("local date time from getStart(): " + startTimeLocal);
-            System.out.println("Time in UTC: " + timeUTC);
-            System.out.println("Time in Australia/Sydney Time: " + timeAus);
-            System.out.println("Time in EST: " + timeEST);
-            LocalDateTime now = LocalDateTime.now();
-            Duration duration = Duration.between(startTimeLocal, now);
-            System.out.println("Time now is: " + now);
-            System.out.println("Duration between: " + duration.toMinutes());
-        }
-
-        /*Set<String> zoneIds= ZoneId.getAvailableZoneIds();
-
-        for (String zone : zoneIds) {
-            System.out.println(zone);
-        }*/
-
-        ObservableList<User> userList= UsersLink.getAllUsers();
+        ObservableList<User> userList = UsersLink.getAllUsers();
 
         for (User user : userList) {
             if (user.getUserName().equals(username.getText())) {
@@ -111,8 +89,7 @@ public class LoginController implements Initializable {
                     writer.write(logEntry);
                     writer.write('\n');
                     writer.close();
-                }
-                else {
+                } else {
                     FileWriter writer = new FileWriter("login_activity.txt", true);
                     ZonedDateTime utc = ZonedDateTime.now(ZoneOffset.UTC);
                     String logEntry = "User " + user.getUserName() + " provided an invalid password at " + utc.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " UTC";
@@ -122,9 +99,40 @@ public class LoginController implements Initializable {
                 }
             }
         }
-        //LocalDateTime localTime = LocalDateTime.now();
-        //System.out.println(localTime);
-        //System.out.println(ControlData.getCurrentUser().getUserId());
+        ObservableList<Appointment> appointmentList = AppointmentsLink.getAllAppointments();
+
+        LocalDateTime startTime = ControlData.timeStringToDateTime("2021-03-18 05:52:00");
+        LocalDateTime endTime = ControlData.timeStringToDateTime("2021-03-17 01:25:00");
+        LocalDateTime createdTime = ControlData.timeStringToDateTime("2021-03-17 11:55:00");
+
+        Appointment test = new Appointment(4, "Color", "Scott's cut", "Detroit", "Consult", Timestamp.valueOf(startTime), Timestamp.valueOf(endTime),
+                Timestamp.valueOf(LocalDateTime.now()), "Scott", Timestamp.valueOf(createdTime), "Camilla", 1, 1, 3);
+
+        AppointmentsLink.addAppointment(test);
+        appointmentList.add(test);
+
+        for (Appointment appointment : appointmentList) {
+            if (appointment.getUserID() == ControlData.getCurrentUser().getUserId()) {
+                LocalDateTime startTimeLocal = appointment.getStart().toLocalDateTime();
+                LocalDateTime timeAus = ControlData.localToAus(startTimeLocal);
+                LocalDateTime timeUTC = ControlData.localToUTC(startTimeLocal);
+                LocalDateTime timeEST = ControlData.localToEST(startTimeLocal);
+                System.out.println("local date time from getStart(): " + startTimeLocal);
+                System.out.println("Time in UTC: " + timeUTC);
+                System.out.println("Time in Australia/Sydney Time: " + timeAus);
+                System.out.println("Time in EST: " + timeEST);
+                LocalDateTime now = LocalDateTime.now();
+                Duration duration = Duration.between(startTimeLocal, now);
+                System.out.println("Time now is: " + now);
+                System.out.println("Duration between: " + duration.toMinutes());
+            }
+
+        /*Set<String> zoneIds= ZoneId.getAvailableZoneIds();
+        for (String zone : zoneIds) {
+            System.out.println(zone);
+        }*/
+
+        }
     }
 
     @FXML

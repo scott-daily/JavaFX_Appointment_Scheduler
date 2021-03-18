@@ -17,7 +17,7 @@
                 </Label>
                 <Button fx:id="signinButton" layoutX="322.0" layoutY="234.0" mnemonicParsing="false" onAction="#onClickLogin" text="Sign In" />
                 <Button fx:id="exitButton" layoutX="226.0" layoutY="234.0" mnemonicParsing="false" onAction="#onClickExit" text="Exit" />
-            <Label fx:id="regionLabel" layoutX="229.0" layoutY="118.0" text="Region:" />
+            <Label fx:id="regionLabel" layoutX="250.0" layoutY="118.0" text="Region" />
             </children></Pane>
     </children>
 </AnchorPane>
