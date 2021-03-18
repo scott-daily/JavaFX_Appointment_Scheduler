@@ -23,6 +23,11 @@ public class ControlData {
         return LocalDateTime.parse(timeString, formatter);
     }
 
+    public static String dateTimeToString(LocalDateTime dateTime) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return dateTimeFormatter.format(dateTime);
+    }
+
     public static LocalDateTime localToEST(LocalDateTime localTime) {
         return localTime.atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("America/Toronto")).toLocalDateTime();
     }

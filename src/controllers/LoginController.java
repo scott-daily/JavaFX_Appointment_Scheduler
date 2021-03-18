@@ -105,11 +105,11 @@ public class LoginController implements Initializable {
         LocalDateTime endTime = ControlData.timeStringToDateTime("2021-03-17 01:25:00");
         LocalDateTime createdTime = ControlData.timeStringToDateTime("2021-03-17 11:55:00");
 
-        Appointment test = new Appointment(4, "Color", "Scott's cut", "Detroit", "Consult", Timestamp.valueOf(startTime), Timestamp.valueOf(endTime),
+        /*Appointment test = new Appointment(10, "Color", "Scott's cut", "Detroit", "Consult", Timestamp.valueOf(startTime), Timestamp.valueOf(endTime),
                 Timestamp.valueOf(LocalDateTime.now()), "Scott", Timestamp.valueOf(createdTime), "Camilla", 1, 1, 3);
 
         AppointmentsLink.addAppointment(test);
-        appointmentList.add(test);
+        appointmentList.add(test);*/
 
         for (Appointment appointment : appointmentList) {
             if (appointment.getUserID() == ControlData.getCurrentUser().getUserId()) {

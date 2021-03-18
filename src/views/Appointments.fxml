@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="1000.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.Appointments">
+   <children>
+      <TableView layoutX="321.0" layoutY="178.0" prefHeight="600.0" prefWidth="1056.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <TextField layoutX="14.0" layoutY="193.0" promptText="Auto Generated ID" />
+      <TextField layoutX="14.0" layoutY="231.0" promptText="Title" />
+      <TextField layoutX="14.0" layoutY="270.0" promptText="Description" />
+      <TextField layoutX="14.0" layoutY="309.0" promptText="Location" />
+      <TextField layoutX="14.0" layoutY="350.0" promptText="Type" />
+      <TextField layoutX="14.0" layoutY="391.0" promptText="Contact Name" />
+      <TextField layoutX="14.0" layoutY="433.0" promptText="Customer ID" />
+      <TextField layoutX="14.0" layoutY="475.0" promptText="User ID" />
+      <ComboBox layoutX="13.0" layoutY="518.0" prefWidth="150.0" />
+      <ComboBox layoutX="13.0" layoutY="560.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>
