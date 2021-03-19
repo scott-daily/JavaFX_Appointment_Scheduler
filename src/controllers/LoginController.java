@@ -8,6 +8,9 @@ import javafx.fxml.Initializable;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -75,7 +78,7 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    public void onClickLogin() throws IOException {
+    public void onClickLogin(ActionEvent actionEvent) throws IOException {
 
         ObservableList<User> userList = UsersLink.getAllUsers();
 
@@ -89,6 +92,13 @@ public class LoginController implements Initializable {
                     writer.write(logEntry);
                     writer.write('\n');
                     writer.close();
+
+                    Parent root = FXMLLoader.load(getClass().getResource("/views/Appointments.fxml"));
+                    Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                    Scene scene = new Scene(root, 1500, 1000);
+                    stage.setTitle("Appointments");
+                    stage.setScene(scene);
+                    stage.show();
                 } else {
                     FileWriter writer = new FileWriter("login_activity.txt", true);
                     ZonedDateTime utc = ZonedDateTime.now(ZoneOffset.UTC);
@@ -99,6 +109,7 @@ public class LoginController implements Initializable {
                 }
             }
         }
+        /*
         ObservableList<Appointment> appointmentList = AppointmentsLink.getAllAppointments();
 
         LocalDateTime startTime = ControlData.timeStringToDateTime("2021-03-18 05:52:00");
@@ -109,7 +120,7 @@ public class LoginController implements Initializable {
                 Timestamp.valueOf(LocalDateTime.now()), "Scott", Timestamp.valueOf(createdTime), "Camilla", 1, 1, 3);
 
         AppointmentsLink.addAppointment(test);
-        appointmentList.add(test);*/
+        appointmentList.add(test);
 
         for (Appointment appointment : appointmentList) {
             if (appointment.getUserID() == ControlData.getCurrentUser().getUserId()) {
@@ -127,12 +138,12 @@ public class LoginController implements Initializable {
                 System.out.println("Duration between: " + duration.toMinutes());
             }
 
-        /*Set<String> zoneIds= ZoneId.getAvailableZoneIds();
+        Set<String> zoneIds= ZoneId.getAvailableZoneIds();
         for (String zone : zoneIds) {
             System.out.println(zone);
-        }*/
-
         }
+
+        }*/
     }
 
     @FXML

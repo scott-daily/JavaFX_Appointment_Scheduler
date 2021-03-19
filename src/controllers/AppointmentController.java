@@ -99,15 +99,15 @@ public class AppointmentController implements Initializable {
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
 
-        apptIdCol.setCellValueFactory(new PropertyValueFactory<>("apptIdCol"));
-        titleCol.setCellValueFactory(new PropertyValueFactory<>("titleCol"));
-        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("descriptionCol"));
-        locationCol.setCellValueFactory(new PropertyValueFactory<>("locationCol"));
-        contactCol.setCellValueFactory(new PropertyValueFactory<>("contactCol"));
-        typeCol.setCellValueFactory(new PropertyValueFactory<>("typeCol"));
-        startCol.setCellValueFactory(new PropertyValueFactory<>("startCol"));
-        endCol.setCellValueFactory(new PropertyValueFactory<>("endCol"));
-        custIdCol.setCellValueFactory(new PropertyValueFactory<>("custIdCol"));
+        apptIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+        contactCol.setCellValueFactory(new PropertyValueFactory<>("contactID"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        custIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
 
         ObservableList<Appointment> allAppointments = AppointmentsLink.getAllAppointments();
         apptTable.setItems(allAppointments);
