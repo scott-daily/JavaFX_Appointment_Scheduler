@@ -1,14 +1,35 @@
 package models;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class Contact {
     private int contactID;
     private String name;
     private String email;
+    public static ObservableList<Contact> contactsList = FXCollections.observableArrayList();
 
     public Contact(int contactID, String name, String email) {
         this.contactID = contactID;
         this.name = name;
         this.email = email;
+    }
+
+    public ObservableList<Contact> getContactsList() {
+        return contactsList;
+    }
+
+    public void addContact(Contact contact) {
+        contactsList.add(contact);
+    }
+
+    public static Contact getContactByID(int contactID) {
+        for (Contact contact : contactsList) {
+            if (contact.getContactID() == contactID) {
+                return contact;
+            }
+        }
+        return null;
     }
 
     public int getContactID() {

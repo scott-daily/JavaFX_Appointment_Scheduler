@@ -1,9 +1,13 @@
 package models;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class User {
     private int userId;
     private String userName;
     private String userPassword;
+    private static ObservableList<User> usersList = FXCollections.observableArrayList();
 
     public User(int userId, String userName, String userPassword) {
         this.userId = userId;

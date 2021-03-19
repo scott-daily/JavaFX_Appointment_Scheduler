@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.Appointment;
+import models.Contact;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -37,7 +38,7 @@ public class AppointmentController implements Initializable {
     private TableColumn<Appointment, String> locationCol;
 
     @FXML
-    private TableColumn<Appointment, String> contactCol;
+    private TableColumn<Appointment, Contact> contactCol;
 
     @FXML
     private TableColumn<Appointment, String> typeCol;
@@ -103,7 +104,7 @@ public class AppointmentController implements Initializable {
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
-        contactCol.setCellValueFactory(new PropertyValueFactory<>("contactID"));
+        contactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
         endCol.setCellValueFactory(new PropertyValueFactory<>("end"));

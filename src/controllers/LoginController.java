@@ -1,6 +1,7 @@
 package controllers;
 
 import DBLink.AppointmentsLink;
+import DBLink.ContactLink;
 import DBLink.CountriesLink;
 import DBLink.UsersLink;
 import javafx.fxml.FXML;
@@ -15,10 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import models.Appointment;
-import models.Country;
-import models.Main;
-import models.User;
+import models.*;
 import utils.ControlData;
 
 import java.io.FileWriter;
@@ -82,6 +80,12 @@ public class LoginController implements Initializable {
 
         ObservableList<User> userList = UsersLink.getAllUsers();
 
+        ObservableList<Contact> contactList = ContactLink.getAllContacts();
+        Contact.contactsList.addAll(contactList);
+
+        ObservableList<Appointment> appointmentList = AppointmentsLink.getAllAppointments();
+        Appointment.appointmentsList.addAll(appointmentList);
+
         for (User user : userList) {
             if (user.getUserName().equals(username.getText())) {
                 if (user.getUserPassword().equals(password.getText())) {
@@ -110,18 +114,16 @@ public class LoginController implements Initializable {
             }
         }
         /*
-        ObservableList<Appointment> appointmentList = AppointmentsLink.getAllAppointments();
-
         LocalDateTime startTime = ControlData.timeStringToDateTime("2021-03-18 05:52:00");
         LocalDateTime endTime = ControlData.timeStringToDateTime("2021-03-17 01:25:00");
         LocalDateTime createdTime = ControlData.timeStringToDateTime("2021-03-17 11:55:00");
 
-        /*Appointment test = new Appointment(10, "Color", "Scott's cut", "Detroit", "Consult", Timestamp.valueOf(startTime), Timestamp.valueOf(endTime),
-                Timestamp.valueOf(LocalDateTime.now()), "Scott", Timestamp.valueOf(createdTime), "Camilla", 1, 1, 3);
+        Appointment test = new Appointment(10, "Color", "Scott's cut", "Detroit", "Consult", Timestamp.valueOf(startTime), Timestamp.valueOf(endTime),
+                Timestamp.valueOf(LocalDateTime.now()), "Scott", Timestamp.valueOf(createdTime), "Camilla", 1, 1, 3, );*/
 
-        AppointmentsLink.addAppointment(test);
-        appointmentList.add(test);
-
+        //AppointmentsLink.addAppointment(test);
+        //appointmentList.add(test);
+        /*
         for (Appointment appointment : appointmentList) {
             if (appointment.getUserID() == ControlData.getCurrentUser().getUserId()) {
                 LocalDateTime startTimeLocal = appointment.getStart().toLocalDateTime();
@@ -137,12 +139,6 @@ public class LoginController implements Initializable {
                 System.out.println("Time now is: " + now);
                 System.out.println("Duration between: " + duration.toMinutes());
             }
-
-        Set<String> zoneIds= ZoneId.getAvailableZoneIds();
-        for (String zone : zoneIds) {
-            System.out.println(zone);
-        }
-
         }*/
     }
 

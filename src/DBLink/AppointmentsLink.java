@@ -1,6 +1,7 @@
 package DBLink;
 
 import models.Appointment;
+import models.Contact;
 import utils.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,8 +37,10 @@ public class AppointmentsLink {
                 int customerID = rs.getInt("Customer_ID");
                 int userID = rs.getInt("User_ID");
                 int contactID = rs.getInt("Contact_ID");
-                Appointment appointment = new Appointment(appointmentId, title, description, location, type, start, end, createDate, createBy, lastUpdate, updateBy, customerID, userID, contactID);
+                Contact contact = Contact.getContactByID(contactID);
+                Appointment appointment = new Appointment(appointmentId, title, description, location, type, start, end, createDate, createBy, lastUpdate, updateBy, customerID, userID, contactID, contact);
                 appointmentList.add(appointment);
+                Appointment.appointmentsList.add(appointment);
             }
         } catch (SQLException e) {
             e.printStackTrace();
