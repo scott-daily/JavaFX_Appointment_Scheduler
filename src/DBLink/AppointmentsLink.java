@@ -74,4 +74,20 @@ public class AppointmentsLink {
             e.printStackTrace();
         }
     }
+
+    public static void deleteAppointment(Appointment appointment) throws SQLException {
+
+        //System.out.println(appointment.getAppointmentID());
+
+        try {
+            String sql = "DELETE FROM appointments WHERE Appointment_ID = + " + appointment.getAppointmentID() + ";";
+
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            //ps.setInt(1, appointment.getAppointmentID());
+
+            ps.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

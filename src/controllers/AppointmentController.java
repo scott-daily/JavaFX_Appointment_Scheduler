@@ -16,6 +16,7 @@ import models.Appointment;
 import models.Contact;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -110,8 +111,8 @@ public class AppointmentController implements Initializable {
         endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
         custIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
 
-        ObservableList<Appointment> allAppointments = AppointmentsLink.getAllAppointments();
-        apptTable.setItems(allAppointments);
+        //ObservableList<Appointment> allAppointments = AppointmentsLink.getAllAppointments();
+        apptTable.setItems(Appointment.appointmentsList);
     }
 
     @FXML
@@ -120,8 +121,12 @@ public class AppointmentController implements Initializable {
     }
 
     @FXML
-    void onClickRemoveAppt(ActionEvent event) {
-
+    void onClickRemoveAppt(ActionEvent event) throws SQLException {
+        if (apptTable.getSelectionModel().getSelectedItem() != null) {
+            Appointment selectedAppt = apptTable.getSelectionModel().getSelectedItem();
+            AppointmentsLink.deleteAppointment(selectedAppt);
+            Appointment.appointmentsList.remove(selectedAppt);
+        }
     }
 
     @FXML

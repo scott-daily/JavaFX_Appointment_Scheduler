@@ -31,8 +31,11 @@
          <font>
             <Font size="14.0" />
          </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="viewGroup" />
+         </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="viewWeekRadio" layoutX="580.0" layoutY="146.0" mnemonicParsing="false" text="View Week">
+      <RadioButton fx:id="viewWeekRadio" layoutX="580.0" layoutY="146.0" mnemonicParsing="false" text="View Week" toggleGroup="$viewGroup">
          <font>
             <Font size="14.0" />
          </font>
@@ -61,7 +64,7 @@
       <ComboBox fx:id="userIdBox" layoutX="13.0" layoutY="474.0" prefWidth="150.0" promptText="User ID" />
       <DatePicker fx:id="startDatePick" layoutX="14.0" layoutY="518.0" promptText="Start Date" />
       <DatePicker fx:id="endDatePick" layoutX="14.0" layoutY="560.0" promptText="End Date" />
-      <RadioButton fx:id="viewAllRadio" layoutX="360.0" layoutY="147.0" mnemonicParsing="false" selected="true" text="View All">
+      <RadioButton fx:id="viewAllRadio" layoutX="360.0" layoutY="147.0" mnemonicParsing="false" selected="true" text="View All" toggleGroup="$viewGroup">
          <font>
             <Font size="14.0" />
          </font>

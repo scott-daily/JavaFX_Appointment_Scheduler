@@ -15,14 +15,6 @@ public class Contact {
         this.email = email;
     }
 
-    public ObservableList<Contact> getContactsList() {
-        return contactsList;
-    }
-
-    public void addContact(Contact contact) {
-        contactsList.add(contact);
-    }
-
     public static Contact getContactByID(int contactID) {
         for (Contact contact : contactsList) {
             if (contact.getContactID() == contactID) {
