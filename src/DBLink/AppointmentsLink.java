@@ -40,7 +40,6 @@ public class AppointmentsLink {
                 Contact contact = Contact.getContactByID(contactID);
                 Appointment appointment = new Appointment(appointmentId, title, description, location, type, start, end, createDate, createBy, lastUpdate, updateBy, customerID, userID, contactID, contact);
                 appointmentList.add(appointment);
-                Appointment.appointmentsList.add(appointment);
             }
         } catch (SQLException e) {
             e.printStackTrace();

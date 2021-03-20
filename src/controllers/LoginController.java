@@ -78,15 +78,11 @@ public class LoginController implements Initializable {
     @FXML
     public void onClickLogin(ActionEvent actionEvent) throws IOException {
 
-        ObservableList<User> userList = UsersLink.getAllUsers();
+        User.usersList.addAll(UsersLink.getAllUsers());
+        Contact.contactsList.addAll(ContactLink.getAllContacts());
+        Appointment.appointmentsList.addAll(AppointmentsLink.getAllAppointments());
 
-        ObservableList<Contact> contactList = ContactLink.getAllContacts();
-        Contact.contactsList.addAll(contactList);
-
-        ObservableList<Appointment> appointmentList = AppointmentsLink.getAllAppointments();
-        Appointment.appointmentsList.addAll(appointmentList);
-
-        for (User user : userList) {
+        for (User user : User.usersList) {
             if (user.getUserName().equals(username.getText())) {
                 if (user.getUserPassword().equals(password.getText())) {
                     ControlData.setCurrentUser(user);
@@ -96,6 +92,17 @@ public class LoginController implements Initializable {
                     writer.write(logEntry);
                     writer.write('\n');
                     writer.close();
+
+                    LocalDateTime startTime = ControlData.timeStringToDateTime("2021-03-18 05:52:00");
+                    LocalDateTime endTime = ControlData.timeStringToDateTime("2021-03-17 01:25:00");
+                    LocalDateTime createdTime = ControlData.timeStringToDateTime("2021-03-17 11:55:00");
+
+                    Appointment test = new Appointment(7, "Dye", "Pams", "Detroit", "Color", Timestamp.valueOf(startTime), Timestamp.valueOf(endTime),
+                            Timestamp.valueOf(LocalDateTime.now()), "Scott", Timestamp.valueOf(createdTime), "Camilla", 1, 1, 3, Contact.getContactByID(3));
+
+                    AppointmentsLink.addAppointment(test);
+                    //appointmentList.add(test);
+
 
                     Parent root = FXMLLoader.load(getClass().getResource("/views/Appointments.fxml"));
                     Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -113,16 +120,7 @@ public class LoginController implements Initializable {
                 }
             }
         }
-        /*
-        LocalDateTime startTime = ControlData.timeStringToDateTime("2021-03-18 05:52:00");
-        LocalDateTime endTime = ControlData.timeStringToDateTime("2021-03-17 01:25:00");
-        LocalDateTime createdTime = ControlData.timeStringToDateTime("2021-03-17 11:55:00");
 
-        Appointment test = new Appointment(10, "Color", "Scott's cut", "Detroit", "Consult", Timestamp.valueOf(startTime), Timestamp.valueOf(endTime),
-                Timestamp.valueOf(LocalDateTime.now()), "Scott", Timestamp.valueOf(createdTime), "Camilla", 1, 1, 3, );*/
-
-        //AppointmentsLink.addAppointment(test);
-        //appointmentList.add(test);
         /*
         for (Appointment appointment : appointmentList) {
             if (appointment.getUserID() == ControlData.getCurrentUser().getUserId()) {

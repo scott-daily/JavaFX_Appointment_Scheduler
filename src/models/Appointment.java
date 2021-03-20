@@ -1,5 +1,6 @@
 package models;
 
+import DBLink.AppointmentsLink;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -49,6 +50,10 @@ public class Appointment {
 
     public void setAppointmentID(int appointmentID) {
         this.appointmentID = appointmentID;
+    }
+
+    public static void refreshAppointments() {
+        appointmentsList = AppointmentsLink.getAllAppointments();
     }
 
     public String getTitle() {

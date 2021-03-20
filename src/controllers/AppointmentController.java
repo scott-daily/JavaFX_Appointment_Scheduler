@@ -111,8 +111,9 @@ public class AppointmentController implements Initializable {
         endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
         custIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
 
-        //ObservableList<Appointment> allAppointments = AppointmentsLink.getAllAppointments();
+        Appointment.refreshAppointments();
         apptTable.setItems(Appointment.appointmentsList);
+
     }
 
     @FXML
@@ -126,6 +127,8 @@ public class AppointmentController implements Initializable {
             Appointment selectedAppt = apptTable.getSelectionModel().getSelectedItem();
             AppointmentsLink.deleteAppointment(selectedAppt);
             Appointment.appointmentsList.remove(selectedAppt);
+            apptTable.refresh();
+            //allAppointments.remove(selectedAppt);
         }
     }
 
