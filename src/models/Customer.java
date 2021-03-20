@@ -10,15 +10,21 @@ public class Customer {
     private String address;
     private String postalCode;
     private String phoneNumber;
-    private static ObservableList<Customer> customersList = FXCollections.observableArrayList();
+    private int divisionID;
+    public static ObservableList<Customer> customersList = FXCollections.observableArrayList();
 
 
-    public Customer(int customerID, String customerName, String address, String postalCode, String phoneNumber) {
+    public Customer(int customerID, String customerName, String address, String postalCode, String phoneNumber, int divisionID) {
         this.customerID = customerID;
         this.customerName = customerName;
         this.address = address;
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
+        this.divisionID = divisionID;
+    }
+
+    public String toString() {
+        return String.valueOf(customerID);
     }
 
     public int getId() { return customerID; }
@@ -32,4 +38,6 @@ public class Customer {
     public String getPostalCode() { return postalCode; }
 
     public String getPhoneNumber() { return phoneNumber; }
+
+    public int getDivisionID() { return divisionID; }
 }

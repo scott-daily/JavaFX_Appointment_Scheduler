@@ -19,6 +19,10 @@ public class User {
         return userId;
     }
 
+    public String toString() {
+        return String.valueOf(userId);
+    }
+
     public String getUserName() {
         return userName;
     }

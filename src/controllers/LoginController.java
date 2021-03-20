@@ -1,9 +1,6 @@
 package controllers;
 
-import DBLink.AppointmentsLink;
-import DBLink.ContactLink;
-import DBLink.CountriesLink;
-import DBLink.UsersLink;
+import DBLink.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.collections.ObservableList;
@@ -81,6 +78,7 @@ public class LoginController implements Initializable {
         User.usersList.addAll(UsersLink.getAllUsers());
         Contact.contactsList.addAll(ContactLink.getAllContacts());
         Appointment.appointmentsList.addAll(AppointmentsLink.getAllAppointments());
+        Customer.customersList.addAll(CustomerLink.getAllCustomers());
 
         for (User user : User.usersList) {
             if (user.getUserName().equals(username.getText())) {
@@ -93,6 +91,7 @@ public class LoginController implements Initializable {
                     writer.write('\n');
                     writer.close();
 
+                    /*
                     LocalDateTime startTime = ControlData.timeStringToDateTime("2021-03-18 05:52:00");
                     LocalDateTime endTime = ControlData.timeStringToDateTime("2021-03-17 01:25:00");
                     LocalDateTime createdTime = ControlData.timeStringToDateTime("2021-03-17 11:55:00");
@@ -101,7 +100,7 @@ public class LoginController implements Initializable {
                             Timestamp.valueOf(LocalDateTime.now()), "Scott", Timestamp.valueOf(createdTime), "Camilla", 1, 1, 3, Contact.getContactByID(3));
 
                     AppointmentsLink.addAppointment(test);
-                    //appointmentList.add(test);
+                    //appointmentList.add(test);*/
 
 
                     Parent root = FXMLLoader.load(getClass().getResource("/views/Appointments.fxml"));

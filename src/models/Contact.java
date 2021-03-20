@@ -24,6 +24,10 @@ public class Contact {
         return null;
     }
 
+    public String toString() {
+        return name;
+    }
+
     public int getContactID() {
         return contactID;
     }

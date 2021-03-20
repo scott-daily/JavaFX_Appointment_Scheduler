@@ -14,12 +14,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.Appointment;
 import models.Contact;
+import models.Customer;
+import models.User;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.SplittableRandom;
 
 public class AppointmentController implements Initializable {
 
@@ -69,7 +73,7 @@ public class AppointmentController implements Initializable {
     private TextField typeField;
 
     @FXML
-    private ComboBox<Appointment> contactBox;
+    private ComboBox<Contact> contactBox;
 
     @FXML
     private ComboBox<LocalTime> startTimeBox;
@@ -84,10 +88,10 @@ public class AppointmentController implements Initializable {
     private RadioButton viewWeekRadio;
 
     @FXML
-    private ComboBox<?> custIdBox;
+    private ComboBox<Customer> custIdBox;
 
     @FXML
-    private ComboBox<?> userIdBox;
+    private ComboBox<User> userIdBox;
 
     @FXML
     private RadioButton viewAllRadio;
@@ -101,6 +105,7 @@ public class AppointmentController implements Initializable {
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
 
+        // Appointment TableView set up
         apptIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -114,11 +119,43 @@ public class AppointmentController implements Initializable {
         Appointment.refreshAppointments();
         apptTable.setItems(Appointment.appointmentsList);
 
+        // Combobox set up
+
+        contactBox.setItems(Contact.contactsList);
+        custIdBox.setItems(Customer.customersList);
+        userIdBox.setItems(User.usersList);
+
     }
 
     @FXML
     void onClickModifyAppt(ActionEvent event) {
 
+    }
+    /**
+     * Stores used Part ID's so that new Parts have unique ID's.
+     */
+    private ArrayList<Integer> usedIdArray = new ArrayList<>();
+
+    /**
+     * Generates a unique ID to be used in a Part constructor method.
+     * Uses the SplittableRandom class to generate a unique sequence of values between the specified bounds.
+     * Uses boolean value isUnique to track if the generated ID already exists within the usedIdArray.
+     * @return Returns an int that represents a unique ID between 1 and 1000.
+     */
+    private int generateUniqueID() {
+        boolean isUnique = false;
+        int randomID = new SplittableRandom().nextInt(1, 1_001);
+
+        while (!isUnique) {
+            if (!usedIdArray.contains(randomID)) {
+                isUnique = true;
+                usedIdArray.add(randomID);
+            }
+            else {
+                randomID = new SplittableRandom().nextInt(1, 1_001);
+            }
+        }
+        return randomID;
     }
 
     @FXML
@@ -128,7 +165,6 @@ public class AppointmentController implements Initializable {
             AppointmentsLink.deleteAppointment(selectedAppt);
             Appointment.appointmentsList.remove(selectedAppt);
             apptTable.refresh();
-            //allAppointments.remove(selectedAppt);
         }
     }
 
