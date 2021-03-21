@@ -158,6 +158,7 @@ public class AppointmentController implements Initializable {
         return randomID;
     }
 
+
     @FXML
     void onClickRemoveAppt(ActionEvent event) throws SQLException {
         if (apptTable.getSelectionModel().getSelectedItem() != null) {
