@@ -29,11 +29,15 @@ public class ControlData {
     }
 
     public static LocalDateTime localToEST(LocalDateTime localTime) {
-        return localTime.atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("America/Toronto")).toLocalDateTime();
+        return localTime.atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("America/New_York")).toLocalDateTime();
+    }
+
+    public static LocalDateTime localToCST(LocalDateTime localTime) {
+        return localTime.atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("America/Chicago")).toLocalDateTime();
     }
 
     public static LocalDateTime utcToLocal(LocalDateTime utcTime) {
-        return utcTime.atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("America/Toronto")).toLocalDateTime();
+        return utcTime.atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("America/New_York")).toLocalDateTime();
     }
 
     public static LocalDateTime localToUTC(LocalDateTime localTime) {

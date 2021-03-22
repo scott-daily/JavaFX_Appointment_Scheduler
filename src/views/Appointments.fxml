@@ -19,7 +19,7 @@
             <TableColumn fx:id="custIdCol" prefWidth="117.0" text="Customer ID" />
         </columns>
       </TableView>
-      <TextField fx:id="idField" layoutX="14.0" layoutY="193.0" promptText="Auto Generated ID" />
+      <TextField fx:id="idField" disable="true" layoutX="14.0" layoutY="193.0" promptText="Auto Generated ID" />
       <TextField fx:id="titleField" layoutX="14.0" layoutY="231.0" promptText="Title" />
       <TextField fx:id="descriptionField" layoutX="14.0" layoutY="270.0" promptText="Description" />
       <TextField fx:id="locationField" layoutX="14.0" layoutY="309.0" promptText="Location" />

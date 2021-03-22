@@ -108,6 +108,7 @@ public class LoginController implements Initializable {
                     Scene scene = new Scene(root, 1500, 1000);
                     stage.setTitle("Appointments");
                     stage.setScene(scene);
+                    stage.centerOnScreen();
                     stage.show();
                 } else {
                     FileWriter writer = new FileWriter("login_activity.txt", true);

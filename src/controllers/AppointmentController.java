@@ -17,9 +17,11 @@ import models.Appointment;
 import models.Contact;
 import models.Customer;
 import models.User;
+import utils.ValidationChecks;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -185,6 +187,22 @@ public class AppointmentController implements Initializable {
 
     @FXML
     void onClickSaveAppt(ActionEvent event) {
+        LocalTime startTime = startTimeBox.getValue();
+        LocalTime endTime = endTimeBox.getValue();
+        LocalDate startDate = startDatePick.getValue();
+        LocalDate endDate = endDatePick.getValue();
+        LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
+        LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
+
+        //System.out.println(ValidationChecks.isDuringBusinessHours(startDateTime, endDateTime));
+        if (ValidationChecks.isDuringBusinessHours(startDateTime, endDateTime)) { // && ValidationChecks.isNotOverlapping(startDateTime, endDateTime, customerID) {
+
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Outside Business Hours");
+            alert.setContentText("Appointments must be between 8:00 AM EST and 10:00 PM EST.");
+            alert.showAndWait();
+        }
 
     }
 
