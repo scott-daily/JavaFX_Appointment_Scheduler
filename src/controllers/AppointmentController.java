@@ -2,6 +2,7 @@ package controllers;
 
 import DBLink.AppointmentsLink;
 import javafx.beans.Observable;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +23,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.SplittableRandom;
 
@@ -119,11 +121,24 @@ public class AppointmentController implements Initializable {
         Appointment.refreshAppointments();
         apptTable.setItems(Appointment.appointmentsList);
 
-        // Combobox set up
+        // ComboBox set up
 
         contactBox.setItems(Contact.contactsList);
         custIdBox.setItems(Customer.customersList);
         userIdBox.setItems(User.usersList);
+
+        ObservableList<LocalTime> timeList = FXCollections.observableArrayList();
+        LocalTime begin = LocalTime.MIDNIGHT;
+        timeList.add(begin);
+
+        int i = 1;
+        while (i < 96) {
+            timeList.add(begin.plusMinutes(15));
+            begin = begin.plusMinutes(15);
+            i++;
+        }
+        startTimeBox.setItems(timeList);
+        endTimeBox.setItems(timeList);
 
     }
 
