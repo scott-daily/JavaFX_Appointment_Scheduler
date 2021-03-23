@@ -6,8 +6,8 @@
 
 <AnchorPane prefHeight="1000.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AppointmentController">
    <children>
-      <Label layoutX="17.0" layoutY="645.0" text="End Time" />
-      <Label layoutX="17.0" layoutY="565.0" text="Start Time" />
+      <Label layoutX="22.0" layoutY="645.0" text="End Time" />
+      <Label layoutX="20.0" layoutY="565.0" text="Start Time" />
       <TableView fx:id="apptTable" layoutX="470.0" layoutY="178.0" prefHeight="600.0" prefWidth="1056.0">
         <columns>
           <TableColumn fx:id="apptIdCol" prefWidth="117.0" text="Appointment ID" />
@@ -71,7 +71,6 @@
             <Font size="14.0" />
          </font>
       </RadioButton>
-      <Label layoutX="2.0" layoutY="197.0" text="Appointment ID" />
       <Label layoutX="35.0" layoutY="478.0" text="User ID" />
       <Label layoutX="10.0" layoutY="440.0" text="Customer ID" />
       <Label layoutX="5.0" layoutY="395.0" text="Contact Name" />

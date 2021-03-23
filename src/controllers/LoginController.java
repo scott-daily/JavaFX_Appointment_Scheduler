@@ -91,20 +91,11 @@ public class LoginController implements Initializable {
                     writer.write('\n');
                     writer.close();
 
-                    /*
-                    LocalDateTime startTime = ControlData.timeStringToDateTime("2021-03-18 05:52:00");
-                    LocalDateTime endTime = ControlData.timeStringToDateTime("2021-03-17 01:25:00");
-                    LocalDateTime createdTime = ControlData.timeStringToDateTime("2021-03-17 11:55:00");
-
-                    Appointment test = new Appointment(7, "Dye", "Pams", "Detroit", "Color", Timestamp.valueOf(startTime), Timestamp.valueOf(endTime),
-                            Timestamp.valueOf(LocalDateTime.now()), "Scott", Timestamp.valueOf(createdTime), "Camilla", 1, 1, 3, Contact.getContactByID(3));
-
-                    AppointmentsLink.addAppointment(test);
-                    //appointmentList.add(test);*/
+                    // Load Appointments view
 
                     Parent root = FXMLLoader.load(getClass().getResource("/views/Appointments.fxml"));
                     Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                    Scene scene = new Scene(root, 1500, 1000);
+                    Scene scene = new Scene(root, 1600, 1000);
                     stage.setTitle("Appointments");
                     stage.setScene(scene);
                     stage.centerOnScreen();
@@ -119,24 +110,6 @@ public class LoginController implements Initializable {
                 }
             }
         }
-
-        /*
-        for (Appointment appointment : appointmentList) {
-            if (appointment.getUserID() == ControlData.getCurrentUser().getUserId()) {
-                LocalDateTime startTimeLocal = appointment.getStart().toLocalDateTime();
-                LocalDateTime timeAus = ControlData.localToAus(startTimeLocal);
-                LocalDateTime timeUTC = ControlData.localToUTC(startTimeLocal);
-                LocalDateTime timeEST = ControlData.localToEST(startTimeLocal);
-                System.out.println("local date time from getStart(): " + startTimeLocal);
-                System.out.println("Time in UTC: " + timeUTC);
-                System.out.println("Time in Australia/Sydney Time: " + timeAus);
-                System.out.println("Time in EST: " + timeEST);
-                LocalDateTime now = LocalDateTime.now();
-                Duration duration = Duration.between(startTimeLocal, now);
-                System.out.println("Time now is: " + now);
-                System.out.println("Duration between: " + duration.toMinutes());
-            }
-        }*/
     }
 
     @FXML

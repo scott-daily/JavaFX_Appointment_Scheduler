@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="725.0" prefWidth="1263.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerController">
+   <children>
+      <TextField fx:id="idField" disable="true" layoutX="155.0" layoutY="125.0" promptText="Auto Generated ID" />
+      <TextField fx:id="nameField" layoutX="155.0" layoutY="165.0" promptText="Customer Name" />
+      <TextField fx:id="addressField" layoutX="155.0" layoutY="205.0" promptText="Address" />
+      <TextField fx:id="postalField" layoutX="155.0" layoutY="246.0" promptText="Postal Code" />
+      <TextField fx:id="phoneField" layoutX="155.0" layoutY="288.0" promptText="Phone" />
+      <ComboBox fx:id="countryCombo" layoutX="154.0" layoutY="331.0" prefWidth="150.0" promptText="Country" />
+      <ComboBox fx:id="divisionCombo" layoutX="154.0" layoutY="378.0" prefWidth="150.0" promptText="First Level Division" />
+      <TableView layoutX="341.0" layoutY="125.0" prefHeight="441.0" prefWidth="910.0">
+        <columns>
+          <TableColumn prefWidth="146.3333740234375" text="Customer Name" />
+          <TableColumn prefWidth="192.33331298828125" text="Address" />
+            <TableColumn prefWidth="95.3333740234375" text="Postal Code" />
+            <TableColumn prefWidth="121.0" text="Phone" />
+            <TableColumn prefWidth="169.333251953125" text="Country" />
+            <TableColumn prefWidth="185.6666259765625" text="First Level Division" />
+        </columns>
+      </TableView>
+      <Button layoutX="154.0" layoutY="437.0" mnemonicParsing="false" onAction="#onClickSave" text="Save">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="252.0" layoutY="437.0" mnemonicParsing="false" onAction="#onClickCancel" text="Cancel">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="341.0" layoutY="566.0" mnemonicParsing="false" text="Modify Customer">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
