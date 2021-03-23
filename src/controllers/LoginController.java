@@ -102,7 +102,6 @@ public class LoginController implements Initializable {
                     AppointmentsLink.addAppointment(test);
                     //appointmentList.add(test);*/
 
-
                     Parent root = FXMLLoader.load(getClass().getResource("/views/Appointments.fxml"));
                     Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                     Scene scene = new Scene(root, 1500, 1000);

@@ -47,4 +47,8 @@ public class ValidationChecks {
         }
         return true;
     }
+
+    public static Boolean isSameDate(LocalDate startDate, LocalDate endDate) {
+        return startDate.equals(endDate);
+    }
 }

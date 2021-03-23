@@ -17,10 +17,12 @@ import models.Appointment;
 import models.Contact;
 import models.Customer;
 import models.User;
+import utils.ControlData;
 import utils.ValidationChecks;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -181,7 +183,8 @@ public class AppointmentController implements Initializable {
             Appointment selectedAppt = apptTable.getSelectionModel().getSelectedItem();
             AppointmentsLink.deleteAppointment(selectedAppt);
             Appointment.appointmentsList.remove(selectedAppt);
-            apptTable.refresh();
+            Appointment.refreshAppointments();
+            apptTable.setItems(Appointment.appointmentsList);
         }
     }
 
@@ -195,7 +198,19 @@ public class AppointmentController implements Initializable {
         LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
         int customerID = custIdBox.getValue().getId();
 
-        if (ValidationChecks.isDuringBusinessHours(startDateTime, endDateTime)) {
+        Boolean isSameDate = ValidationChecks.isSameDate(startDate, endDate);
+        Boolean isDuringBusinessHours = ValidationChecks.isDuringBusinessHours(startDateTime, endDateTime);
+        Boolean isNotOverlapping = ValidationChecks.isNotOverlapping(startDateTime, endDateTime, customerID);
+
+        if (isSameDate) {
+            System.out.println("Appt starts and ends on the same date.");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Appointment Date Error");
+            alert.setContentText("Appointment times must be on the same day.");
+            alert.showAndWait();
+        }
+        if (isDuringBusinessHours) {
             System.out.println("Submitted appt is during business hours.");
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -203,13 +218,41 @@ public class AppointmentController implements Initializable {
             alert.setContentText("Appointments must be between 8:00 AM EST and 10:00 PM EST.");
             alert.showAndWait();
         }
-        if (ValidationChecks.isNotOverlapping(startDateTime, endDateTime, customerID)) {
+        if (isNotOverlapping) {
             System.out.println("Submitted appt is not overlapping any existing appointments.");
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Overlapping Appointments");
             alert.setContentText("Customer appointments cannot have overlapping times.");
             alert.showAndWait();
+        }
+
+        if (isSameDate && isDuringBusinessHours && isNotOverlapping) {
+            Appointment newAppt = new Appointment(generateUniqueID(), titleField.getText(), descriptionField.getText(), locationField.getText(), typeField.getText(), Timestamp.valueOf(startDateTime), Timestamp.valueOf(endDateTime),
+                    Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), Timestamp.valueOf(LocalDateTime.now()), "null", custIdBox.getValue().getId(), userIdBox.getValue().getUserId(), contactBox.getValue().getContactID(), Contact.getContactByID(contactBox.getValue().getContactID()));
+
+        AppointmentsLink.addAppointment(newAppt);
+        Appointment.appointmentsList.add(newAppt);
+        Appointment.refreshAppointments();
+
+        titleField.clear();
+        descriptionField.clear();
+        locationField.clear();
+        typeField.clear();
+        contactBox.getSelectionModel().clearSelection();
+        contactBox.setPromptText("Contact Name");
+        custIdBox.getSelectionModel().clearSelection();
+        custIdBox.setPromptText("Customer ID");
+        userIdBox.getSelectionModel().clearSelection();
+        userIdBox.setPromptText("User ID");
+        startDatePick.getEditor().clear();
+        startDatePick.setPromptText("Start Date");
+        endDatePick.getEditor().clear();
+        endDatePick.setPromptText("End Date");
+        startTimeBox.getSelectionModel().clearSelection();
+        startTimeBox.setPromptText("Start Time");
+        endTimeBox.getSelectionModel().clearSelection();
+        endTimeBox.setPromptText("End Time");
         }
     }
 
