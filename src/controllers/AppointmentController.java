@@ -193,9 +193,11 @@ public class AppointmentController implements Initializable {
         LocalDate endDate = endDatePick.getValue();
         LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
         LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
+        int customerID = custIdBox.getValue().getId();
 
+        System.out.println(ValidationChecks.isNotOverlapping(startDateTime, endDateTime, customerID));
         //System.out.println(ValidationChecks.isDuringBusinessHours(startDateTime, endDateTime));
-        if (ValidationChecks.isDuringBusinessHours(startDateTime, endDateTime)) { // && ValidationChecks.isNotOverlapping(startDateTime, endDateTime, customerID) {
+        if (/*ValidationChecks.isDuringBusinessHours(startDateTime, endDateTime))*/ValidationChecks.isNotOverlapping(startDateTime, endDateTime, customerID)) {
 
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
