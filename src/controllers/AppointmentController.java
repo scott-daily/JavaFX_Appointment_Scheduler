@@ -7,12 +7,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.application.Platform;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import models.Appointment;
 import models.Contact;
 import models.Customer;
@@ -150,20 +154,23 @@ public class AppointmentController implements Initializable {
     @FXML
     void onClickModifyAppt(ActionEvent event) throws IOException {
         if (apptTable.getSelectionModel().getSelectedItem() != null) {
-            Appointment selectedAppt = apptTable.getSelectionModel().getSelectedItem();
+            ControlData.selectedAppointment = apptTable.getSelectionModel().getSelectedItem();
+            ControlData.appointmentID = apptTable.getSelectionModel().getSelectedItem().getAppointmentID();
+            ControlData.selectedAppointmentIndex = apptTable.getSelectionModel().getSelectedIndex();
 
-            idField.setText(String.valueOf(selectedAppt.getAppointmentID()));
-            titleField.setText(selectedAppt.getTitle());
-            descriptionField.setText(selectedAppt.getDescription());
-            locationField.setText(selectedAppt.getLocation());
-            typeField.setText(selectedAppt.getType());
-            contactBox.setValue(selectedAppt.getContactObject());
-            custIdBox.setValue(selectedAppt.getCustomerByID(selectedAppt.getCustomerID()));
-            userIdBox.setValue(selectedAppt.getUserByID(selectedAppt.getUserID()));
-            startDatePick.setValue(selectedAppt.getStart().toLocalDateTime().toLocalDate());
-            startTimeBox.getSelectionModel().select(selectedAppt.getStart().toLocalDateTime().toLocalTime());
-            endDatePick.setValue(selectedAppt.getEnd().toLocalDateTime().toLocalDate());
-            endTimeBox.getSelectionModel().select(selectedAppt.getEnd().toLocalDateTime().toLocalTime());
+
+            Parent root = FXMLLoader.load(getClass().getResource("/views/ModifyAppointment.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene ModifyAppointmentScene = new Scene(root, 625, 710);
+            stage.setTitle("Modify Appointment");
+            stage.setScene(ModifyAppointmentScene);
+            stage.centerOnScreen();
+            stage.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Warning");
+            alert.setContentText("A product must be selected for modification.");
+            alert.showAndWait();
         }
     }
     /**
@@ -205,7 +212,7 @@ public class AppointmentController implements Initializable {
     }
 
     @FXML
-    void onClickSaveAppt(ActionEvent event) {
+    void onClickSaveAppt(ActionEvent event) throws SQLException {
         if (startTimeBox.getValue() != null && endTimeBox.getValue() != null && startDatePick.getValue() != null && endDatePick.getValue() != null && custIdBox.getValue() != null) {
             LocalTime startTime = startTimeBox.getValue();
             LocalTime endTime = endTimeBox.getValue();
@@ -246,12 +253,12 @@ public class AppointmentController implements Initializable {
 
             if (isSameDate && isDuringBusinessHours && isNotOverlapping) {
 
-                Appointment newAppt = new Appointment(generateUniqueID(), titleField.getText(), descriptionField.getText(), locationField.getText(), typeField.getText(), Timestamp.valueOf(startDateTime), Timestamp.valueOf(endDateTime),
-                        Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), Timestamp.valueOf(LocalDateTime.now()), "null", custIdBox.getValue().getId(), userIdBox.getValue().getUserId(), contactBox.getValue().getContactID(), Contact.getContactByID(contactBox.getValue().getContactID()));
+                    Appointment newAppt = new Appointment(generateUniqueID(), titleField.getText(), descriptionField.getText(), locationField.getText(), typeField.getText(), Timestamp.valueOf(startDateTime), Timestamp.valueOf(endDateTime),
+                            Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), custIdBox.getValue().getId(), userIdBox.getValue().getUserId(), contactBox.getValue().getContactID(), Contact.getContactByID(contactBox.getValue().getContactID()));
 
-                AppointmentsLink.addAppointment(newAppt);
-                Appointment.appointmentsList.add(newAppt);
-                Appointment.refreshAppointments();
+                    AppointmentsLink.addAppointment(newAppt);
+                    Appointment.appointmentsList.add(newAppt);
+                    Appointment.refreshAppointments();
 
                 titleField.clear();
                 descriptionField.clear();
@@ -271,14 +278,16 @@ public class AppointmentController implements Initializable {
                 startTimeBox.setPromptText("Start Time");
                 endTimeBox.getSelectionModel().clearSelection();
                 endTimeBox.setPromptText("End Time");
+                }
             }
-        } else {
+        else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Missing Values");
             alert.setContentText("Valid values must be entered for all inputs.");
             alert.showAndWait();
         }
     }
+
 
     @FXML
     void onClickViewCust(ActionEvent event) {

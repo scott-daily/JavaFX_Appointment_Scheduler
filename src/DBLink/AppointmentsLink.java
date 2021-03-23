@@ -76,17 +76,40 @@ public class AppointmentsLink {
 
     public static void deleteAppointment(Appointment appointment) throws SQLException {
 
-        //System.out.println(appointment.getAppointmentID());
-
         try {
             String sql = "DELETE FROM appointments WHERE Appointment_ID = + " + appointment.getAppointmentID() + ";";
 
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            //ps.setInt(1, appointment.getAppointmentID());
-
             ps.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void updateAppointment(Appointment appointment) throws SQLException {
+
+        String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?;";
+
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql)) {
+
+            ps.setString(1, appointment.getTitle());
+            ps.setString(2, appointment.getDescription());
+            ps.setString(3, appointment.getLocation());
+            ps.setString(4, appointment.getType());
+            ps.setTimestamp(5, appointment.getStart());
+            ps.setTimestamp(6, appointment.getEnd());
+            ps.setTimestamp(7, appointment.getLastUpdate());
+            ps.setString(8, appointment.getUpdateBy());
+            ps.setInt(9,appointment.getCustomerID());
+            ps.setInt(10, appointment.getUserID());
+            ps.setInt(11, appointment.getContactID());
+            ps.setInt(12, appointment.getAppointmentID());
+
+            ps.executeUpdate();
+            System.out.println("Finished updating appointment");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

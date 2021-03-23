@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="710.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifyAppointmentController">
+    <TextField fx:id="idField" disable="true" layoutX="91.0" layoutY="90.0" promptText="Auto Generated ID" />
+    <TextField fx:id="titleField" layoutX="91.0" layoutY="129.0" promptText="Title" />
+    <TextField fx:id="descriptionField" layoutX="90.0" layoutY="165.0" promptText="Description" />
+    <TextField fx:id="locationField" layoutX="90.0" layoutY="201.0" promptText="Location" />
+    <TextField fx:id="typeField" layoutX="90.0" layoutY="236.0" promptText="Type" />
+    <ComboBox fx:id="contactBox" layoutX="90.0" layoutY="271.0" prefWidth="150.0" promptText="Contact Name" />
+    <ComboBox fx:id="custIdBox" layoutX="90.0" layoutY="308.0" prefWidth="150.0" promptText="Customer ID" />
+    <ComboBox fx:id="userIdBox" layoutX="90.0" layoutY="348.0" prefWidth="150.0" promptText="User ID" />
+    <DatePicker fx:id="startDatePick" layoutX="90.0" layoutY="387.0" promptText="Start Date" />
+    <DatePicker fx:id="endDatePick" layoutX="90.0" layoutY="472.0" promptText="End Date" />
+    <ComboBox fx:id="startTimeBox" layoutX="89.0" layoutY="428.0" prefWidth="150.0" promptText="Start Time" />
+    <ComboBox fx:id="endTimeBox" layoutX="89.0" layoutY="512.0" prefWidth="150.0" promptText="End Time" />
+   <Button layoutX="89.0" layoutY="570.0" mnemonicParsing="false" onAction="#onClickUpdate" text="Update">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Button>
+   <Button layoutX="215.0" layoutY="570.0" mnemonicParsing="false" onAction="#onClickCancel" text="Cancel">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Button>
+</AnchorPane>
