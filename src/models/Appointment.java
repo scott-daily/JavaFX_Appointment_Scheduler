@@ -165,6 +165,28 @@ public class Appointment {
     public void setContact (Contact contact) {
         this.contact = contact;
     }
+
+    public Contact getContactObject() {
+        return contact;
+    }
+
+    public Customer getCustomerByID(int customerID) {
+        for (Customer customer : Customer.customersList) {
+            if (customer.getId() == customerID) {
+                return customer;
+            }
+        }
+        return null;
+    }
+
+    public User getUserByID(int userID) {
+        for (User user : User.usersList) {
+            if (user.getUserId() == userID) {
+                return user;
+            }
+        }
+        return null;
+    }
 }
 
 
