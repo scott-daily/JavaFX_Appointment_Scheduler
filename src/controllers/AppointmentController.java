@@ -195,17 +195,14 @@ public class AppointmentController implements Initializable {
         LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
         int customerID = custIdBox.getValue().getId();
 
-        System.out.println(ValidationChecks.isNotOverlapping(startDateTime, endDateTime, customerID));
-        //System.out.println(ValidationChecks.isDuringBusinessHours(startDateTime, endDateTime));
-        if (/*ValidationChecks.isDuringBusinessHours(startDateTime, endDateTime))*/ValidationChecks.isNotOverlapping(startDateTime, endDateTime, customerID)) {
-
+        if (ValidationChecks.isDuringBusinessHours(startDateTime, endDateTime) && ValidationChecks.isNotOverlapping(startDateTime, endDateTime, customerID)) {
+            System.out.println("Submitted appt is during business hours & is not overlapping with a different appt.");
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Outside Business Hours");
             alert.setContentText("Appointments must be between 8:00 AM EST and 10:00 PM EST.");
             alert.showAndWait();
         }
-
     }
 
     @FXML
