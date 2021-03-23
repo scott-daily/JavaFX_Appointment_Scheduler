@@ -79,6 +79,8 @@ public class LoginController implements Initializable {
         Contact.contactsList.addAll(ContactLink.getAllContacts());
         Appointment.appointmentsList.addAll(AppointmentsLink.getAllAppointments());
         Customer.customersList.addAll(CustomerLink.getAllCustomers());
+        Division.divisionsList.addAll(DivisionLink.getAllDivisions());
+        Country.countriesList.addAll(CountriesLink.getAllCountries());
 
         for (User user : User.usersList) {
             if (user.getUserName().equals(username.getText())) {

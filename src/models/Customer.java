@@ -11,6 +11,8 @@ public class Customer {
     private String postalCode;
     private String phoneNumber;
     private int divisionID;
+    private Country country;
+    private Division division;
     public static ObservableList<Customer> customersList = FXCollections.observableArrayList();
 
 
