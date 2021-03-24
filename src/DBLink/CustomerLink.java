@@ -2,6 +2,7 @@ package DBLink;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.Appointment;
 import models.Country;
 import models.Customer;
 import models.Division;
@@ -66,6 +67,18 @@ public class CustomerLink {
 
                 ps.executeUpdate();
                 System.out.println("Added customer");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteCustomer(Customer customer) throws SQLException {
+
+        try {
+            String sql = "DELETE FROM customers WHERE Customer_ID = + " + customer.getCustomerID() + ";";
+
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ps.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -262,11 +262,8 @@ public class AppointmentController implements Initializable {
                 locationField.clear();
                 typeField.clear();
                 contactBox.getSelectionModel().clearSelection();
-                contactBox.setPromptText("Contact Name");
                 custIdBox.getSelectionModel().clearSelection();
-                custIdBox.setPromptText("Customer ID");
                 userIdBox.getSelectionModel().clearSelection();
-                userIdBox.setPromptText("User ID");
                 startDatePick.getEditor().clear();
                 startDatePick.setPromptText("Start Date");
                 endDatePick.getEditor().clear();

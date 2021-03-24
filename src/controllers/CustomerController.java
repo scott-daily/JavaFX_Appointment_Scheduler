@@ -1,18 +1,26 @@
 package controllers;
 
+import DBLink.AppointmentsLink;
 import DBLink.CustomerLink;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import models.*;
 import utils.ControlData;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -84,9 +92,16 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
-    void onClickCancel(ActionEvent event) {
-
+    void onClickCancel(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/views/Appointments.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 1600, 1000);
+        stage.setTitle("Appointments");
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
     }
+
     @FXML
     public void onSelectChangeDiv(ActionEvent event){
         Country selectedCountry = countryCombo.getValue();
@@ -98,7 +113,6 @@ public class CustomerController implements Initializable {
             }
         }
         divisionCombo.setItems(countryDivs);
-
     }
 
     /**
@@ -144,6 +158,33 @@ public class CustomerController implements Initializable {
             alert.setContentText("Valid values must be entered for all inputs.");
             alert.showAndWait();
         }
+
+        nameField.clear();
+        addressField.clear();
+        postalField.clear();
+        phoneField.clear();
+        countryCombo.getSelectionModel().clearSelection();
+        divisionCombo.getSelectionModel().clearSelection();
         custTableView.refresh();
+    }
+
+    @FXML
+    void onClickRemove(ActionEvent event) throws SQLException {
+        if (custTableView.getSelectionModel().getSelectedItem() != null) {
+
+            Customer selectedCustomer = custTableView.getSelectionModel().getSelectedItem();
+
+            // Remove customer's appointments before removing the customer.
+            for (Appointment appointment : Appointment.appointmentsList) {
+                if (appointment.getCustomerID() == selectedCustomer.getCustomerID()) {
+                    AppointmentsLink.deleteAppointment(appointment);
+                }
+            }
+
+            CustomerLink.deleteCustomer(selectedCustomer);
+            Customer.customersList.remove(selectedCustomer);
+            Customer.refreshCustomers();
+            custTableView.setItems(Customer.customersList);
+        }
     }
 }
