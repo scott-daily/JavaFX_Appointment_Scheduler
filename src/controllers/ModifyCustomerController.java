@@ -1,18 +1,29 @@
 package controllers;
 
+import DBLink.CustomerLink;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import models.Appointment;
 import models.Country;
 import models.Customer;
 import models.Division;
 import utils.ControlData;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class ModifyCustomerController implements Initializable {
@@ -56,18 +67,46 @@ public class ModifyCustomerController implements Initializable {
 
         divisionCombo.setItems(divisionsToShow);
         divisionCombo.setValue(selectedCustomer.getDivisionObject());
+
+        // Set text fields
+        idField.setText(String.valueOf(selectedCustomer.getCustomerID()));
+        nameField.setText(selectedCustomer.getCustomerName());
+        addressField.setText(selectedCustomer.getAddress());
+        postalField.setText(selectedCustomer.getPostalCode());
+        phoneField.setText(selectedCustomer.getPhoneNumber());
+
     }
 
-
-
     @FXML
-    void onClickCancel(ActionEvent event) {
-
+    void onClickCancel(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/views/Customers.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene CustomerViewScene = new Scene(root, 1263, 725);
+        stage.setTitle("Customers");
+        stage.setScene(CustomerViewScene);
+        stage.centerOnScreen();
+        stage.show();
     }
 
     @FXML
-    void onClickUpdate(ActionEvent event) {
+    void onClickUpdate(ActionEvent event) throws SQLException, IOException {
+        if (countryCombo.getValue() != null && divisionCombo.getValue() != null && nameField.getText() != null && addressField.getText() != null && postalField.getText() != null && phoneField.getText() != null) {
+            String division = divisionCombo.getValue().getDivision();
 
+            Customer updatedCustomer = new Customer(ControlData.selectedCustomer.getCustomerID(), nameField.getText(), addressField.getText(), postalField.getText(), phoneField.getText(), Division.getDivisionIDByName(division), Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), countryCombo.getValue(), divisionCombo.getValue());
+
+            Customer.customersList.set(ControlData.selectedCustomerIndex, updatedCustomer);
+            CustomerLink.updateCustomer(updatedCustomer);
+            Customer.refreshCustomers();
+
+            Parent root = FXMLLoader.load(getClass().getResource("/views/Customers.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene CustomerViewScene = new Scene(root, 1263, 725);
+            stage.setTitle("Customers");
+            stage.setScene(CustomerViewScene);
+            stage.centerOnScreen();
+            stage.show();
+        }
     }
 
     @FXML
