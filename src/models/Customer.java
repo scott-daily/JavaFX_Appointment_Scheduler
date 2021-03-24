@@ -61,6 +61,18 @@ public class Customer {
         return createdBy;
     }
 
+    public Country getCountryObject() {
+        return country;
+    }
+
+    public Division getDivisionObject() {
+        return division;
+    }
+
+    public int getCountryID() {
+        return country.getId();
+    }
+
     public Timestamp getLastUpdate() {
         return lastUpdate;
     }

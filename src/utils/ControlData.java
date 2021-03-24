@@ -18,6 +18,7 @@ public class ControlData {
 
     public static Customer selectedCustomer;
     public static int selectedCustomerIndex;
+    public static int selectedCustomerCountryID;
 
     public static void setCurrentUser(User user) {
         ControlData.currentUser= user;

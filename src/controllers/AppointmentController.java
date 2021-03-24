@@ -164,7 +164,7 @@ public class AppointmentController implements Initializable {
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Warning");
-            alert.setContentText("A product must be selected for modification.");
+            alert.setContentText("An appointment must be selected for modification.");
             alert.showAndWait();
         }
     }

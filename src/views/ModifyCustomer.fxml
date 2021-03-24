@@ -15,12 +15,12 @@
 
     <Label layoutX="99.0" layoutY="337.0" text="Country" />
     <Label layoutX="44.0" layoutY="382.0" text="First Level Division" />
-   <Button layoutX="155.0" layoutY="437.0" mnemonicParsing="false" text="Update">
+   <Button layoutX="155.0" layoutY="437.0" mnemonicParsing="false" onAction="#onClickUpdate" text="Update">
       <font>
          <Font size="18.0" />
       </font>
    </Button>
-   <Button layoutX="280.0" layoutY="437.0" mnemonicParsing="false" text="Cancel">
+   <Button layoutX="280.0" layoutY="437.0" mnemonicParsing="false" onAction="#onClickCancel" text="Cancel">
       <font>
          <Font size="18.0" />
       </font>

@@ -189,12 +189,26 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
-    void onClickModify(ActionEvent event) throws SQLException {
+    void onClickModify(ActionEvent event) throws SQLException, IOException {
         if (custTableView.getSelectionModel().getSelectedItem() != null) {
             ControlData.selectedCustomer = custTableView.getSelectionModel().getSelectedItem();
             ControlData.selectedCustomerIndex = custTableView.getSelectionModel().getSelectedIndex();
+            //ControlData.selectedCustomerCountryID = custTableView.getSelectionModel().getSelectedItem().getCountry().g
 
 
+            Parent root = FXMLLoader.load(getClass().getResource("/views/ModifyCustomer.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene ModifyAppointmentScene = new Scene(root, 625, 710);
+            stage.setTitle("Modify Appointment");
+            stage.setScene(ModifyAppointmentScene);
+            stage.centerOnScreen();
+            stage.show();
+
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Warning");
+            alert.setContentText("A customer must be selected for modification.");
+            alert.showAndWait();
         }
     }
 }
