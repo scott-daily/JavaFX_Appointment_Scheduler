@@ -11,7 +11,7 @@
       <TextField fx:id="addressField" layoutX="155.0" layoutY="205.0" promptText="Address" />
       <TextField fx:id="postalField" layoutX="155.0" layoutY="246.0" promptText="Postal Code" />
       <TextField fx:id="phoneField" layoutX="155.0" layoutY="288.0" promptText="Phone" />
-      <ComboBox fx:id="countryCombo" layoutX="154.0" layoutY="331.0" prefWidth="150.0" promptText="Country" />
+      <ComboBox fx:id="countryCombo" layoutX="154.0" layoutY="331.0" onAction="#onSelectChangeDiv" prefWidth="150.0" promptText="Country" />
       <ComboBox fx:id="divisionCombo" layoutX="154.0" layoutY="378.0" prefWidth="150.0" promptText="First Level Division" />
       <TableView fx:id="custTableView" layoutX="341.0" layoutY="125.0" prefHeight="441.0" prefWidth="910.0">
         <columns>

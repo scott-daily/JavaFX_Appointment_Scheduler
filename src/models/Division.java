@@ -28,6 +28,10 @@ public class Division {
         divisionProperty().set(division);
     }
 
+    public String toString() {
+        return getDivision();
+    }
+
     public int getDivisionID() {
         return divisionID;
     }

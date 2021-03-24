@@ -51,7 +51,7 @@ public class Country {
         return countryID;
     }
 
-    /*public String getName() {
-        return countryName;
-    }*/
+    public String toString() {
+        return getCountryName();
+    }
 }

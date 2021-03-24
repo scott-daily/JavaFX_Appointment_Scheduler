@@ -1,6 +1,8 @@
 package controllers;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,10 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import models.Appointment;
-import models.Country;
-import models.Customer;
-import models.Division;
+import models.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -76,12 +75,28 @@ public class CustomerController implements Initializable {
         firstLevelCol.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getDivision()));
 
         custTableView.setItems(Customer.customersList);
+
+        countryCombo.setItems(Country.countriesList);
+        divisionCombo.setItems(Division.divisionsList);
     }
 
     @FXML
     void onClickCancel(ActionEvent event) {
 
     }
+    @FXML
+    public void onSelectChangeDiv(ActionEvent event){
+        Country selectedCountry = countryCombo.getValue();
+
+        ObservableList<Division> countryDivs = FXCollections.observableArrayList();
+        for (Division div : Division.divisionsList) {
+            if (div.getCountryID() == selectedCountry.getId()) {
+                countryDivs.add(div);
+            }
+        }
+        divisionCombo.setItems(countryDivs);
+
+    } // Use this code when working with FXML files
 
     @FXML
     void onClickSave(ActionEvent event) {

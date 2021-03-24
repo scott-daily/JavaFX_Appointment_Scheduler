@@ -107,11 +107,6 @@ public class Customer {
         return customersList;
     }
 
-    // firstNameProperty with no formal parameters and a return type of ObservableValue<String>.
-    public String divisionProperty() {
-        return division.getDivision();
-    }
-
     public static void setCustomersList(ObservableList<Customer> customersList) {
         Customer.customersList = customersList;
     }

@@ -145,19 +145,6 @@ public class AppointmentController implements Initializable {
         }
         startTimeBox.setItems(timeList);
         endTimeBox.setItems(timeList);
-
-        System.out.println(Division.getDivisionByID(103).getDivision());
-
-        /*for (Division div : Division.divisionsList) {
-            System.out.println(div.getDivision());
-        }*/
-
-        //Customer.refreshCustomers();
-
-        for (Customer cus : Customer.customersList) {
-            System.out.println(cus.getDivision());
-        }
-
     }
 
     @FXML
