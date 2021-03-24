@@ -110,6 +110,5 @@ public class AppointmentsLink {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 }

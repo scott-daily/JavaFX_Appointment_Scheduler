@@ -83,4 +83,28 @@ public class CustomerLink {
             e.printStackTrace();
         }
     }
+
+    public static void updateCustomer(Customer customer) throws SQLException {
+
+        String sql = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Create_Date = ?, Created_By = ?, Last_Update = ?, Last_Updated_By = ?, Division_ID = ? WHERE Customer_ID = ?;";
+
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql)) {
+
+            ps.setString(1, customer.getCustomerName());
+            ps.setString(2, customer.getAddress());
+            ps.setString(3, customer.getPostalCode());
+            ps.setString(4, customer.getPhoneNumber());
+            ps.setTimestamp(5, customer.getCreateDate());
+            ps.setString(6, customer.getCreatedBy());
+            ps.setTimestamp(7, customer.getLastUpdate());
+            ps.setString(8, customer.getLastUpdatedBy());
+            ps.setInt(9,customer.getDivisionID());
+            ps.setInt(10, customer.getCustomerID());
+
+            ps.executeUpdate();
+            System.out.println("Finished updating customer" + customer.getCustomerID());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
