@@ -10,6 +10,7 @@ import utils.DBConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 public class CustomerLink {
 
@@ -31,14 +32,42 @@ public class CustomerLink {
                 String postalCode = rs.getString("Postal_Code");
                 String phoneNumber = rs.getString("Phone");
                 int divisionID = rs.getInt("Division_ID");
+                Timestamp createDate = rs.getTimestamp("Create_Date");
+                String createdBy = rs.getString("Created_By");
+                Timestamp lastUpdate = rs.getTimestamp("Last_Update");
+                String lastUpdatedBy = rs.getString("Last_Updated_By");
                 Division division = Division.getDivisionByID(divisionID);
                 Country country = Country.getCountryByID(Country.getCountryIDByDivisionID(divisionID));
-                Customer customer = new Customer(customerID, name, address, postalCode, phoneNumber, divisionID, country, division);
+                Customer customer = new Customer(customerID, name, address, postalCode, phoneNumber, divisionID, createDate, createdBy, lastUpdate, lastUpdatedBy, country, division);
                 customerList.add(customer);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return customerList;
+    }
+
+    public static void addCustomer(Customer customer) {
+
+        String sql = "INSERT INTO customers(Customer_ID, Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql)) {
+
+                ps.setInt(1, customer.getCustomerID());
+                ps.setString(2, customer.getCustomerName());
+                ps.setString(3, customer.getAddress());
+                ps.setString(4, customer.getPostalCode());
+                ps.setString(5, customer.getPhoneNumber());
+                ps.setTimestamp(6, customer.getCreateDate());
+                ps.setString(7, customer.getCreatedBy());
+                ps.setTimestamp(8, customer.getLastUpdate());
+                ps.setString(9, customer.getLastUpdatedBy());
+                ps.setInt(10,customer.getDivisionID());
+
+                ps.executeUpdate();
+                System.out.println("Added customer");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

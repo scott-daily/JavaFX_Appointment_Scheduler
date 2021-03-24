@@ -1,20 +1,23 @@
 package controllers;
 
+import DBLink.CustomerLink;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.*;
+import utils.ControlData;
 
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.SplittableRandom;
 
 public class CustomerController implements Initializable {
 
@@ -96,10 +99,51 @@ public class CustomerController implements Initializable {
         }
         divisionCombo.setItems(countryDivs);
 
-    } // Use this code when working with FXML files
+    }
+
+    /**
+     * Stores used Appointment ID's so that new Appointments have unique ID's.
+     */
+    private ArrayList<Integer> usedIdArray = new ArrayList<>();
+
+    /**
+     * Generates a unique ID to be used in a Part constructor method.
+     * Uses the SplittableRandom class to generate a unique sequence of values between the specified bounds.
+     * Uses boolean value isUnique to track if the generated ID already exists within the usedIdArray.
+     * @return Returns an int that represents a unique ID between 1 and 1000.
+     */
+    private int generateUniqueID() {
+        boolean isUnique = false;
+        int randomID = new SplittableRandom().nextInt(1, 1_001);
+
+        while (!isUnique) {
+            if (!usedIdArray.contains(randomID)) {
+                isUnique = true;
+                usedIdArray.add(randomID);
+            }
+            else {
+                randomID = new SplittableRandom().nextInt(1, 1_001);
+            }
+        }
+        return randomID;
+    }
 
     @FXML
     void onClickSave(ActionEvent event) {
+        if (countryCombo.getValue() != null && divisionCombo.getValue() != null && nameField.getText() != null && addressField.getText() != null && postalField.getText() != null && phoneField.getText() != null) {
+            String division = divisionCombo.getValue().getDivision();
 
+            Customer customer = new Customer(generateUniqueID(), nameField.getText(), addressField.getText(), postalField.getText(), phoneField.getText(), Division.getDivisionIDByName(division), Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), countryCombo.getValue(), divisionCombo.getValue());
+            CustomerLink.addCustomer(customer);
+            Customer.customersList.add(customer);
+            Customer.refreshCustomers();
+            custTableView.setItems(Customer.customersList);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Missing Values");
+            alert.setContentText("Valid values must be entered for all inputs.");
+            alert.showAndWait();
+        }
+        custTableView.refresh();
     }
 }

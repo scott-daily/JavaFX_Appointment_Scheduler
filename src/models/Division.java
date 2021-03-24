@@ -62,4 +62,22 @@ public class Division {
         }
         return null;
     }
+
+    public static String getDivisionByName(String divisionName) {
+        for (Division division : Division.divisionsList) {
+            if (division.getDivision().equals(divisionName)) {
+                return division.getDivision();
+            }
+        }
+        return null;
+    }
+
+    public static int getDivisionIDByName(String divisionName) {
+        for (Division division : Division.divisionsList) {
+            if (division.getDivision().equals(divisionName)) {
+                return division.getDivisionID();
+            }
+        }
+        return -1;
+    }
 }

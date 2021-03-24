@@ -7,6 +7,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.Timestamp;
+
 public class Customer {
 
     private int customerID;
@@ -15,20 +17,28 @@ public class Customer {
     private String postalCode;
     private String phoneNumber;
     private int divisionID;
+    private Timestamp createDate;
+    private String createdBy;
+    private Timestamp lastUpdate;
+    private String lastUpdatedBy;
     private Country country;
     private Division division;
     public static ObservableList<Customer> customersList = FXCollections.observableArrayList();
 
 
-    public Customer(int customerID, String customerName, String address, String postalCode, String phoneNumber, int divisionID, Country country, Division divsionName) {
+    public Customer(int customerID, String customerName, String address, String postalCode, String phoneNumber, int divisionID, Timestamp createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy, Country country, Division divisionName) {
         this.customerID = customerID;
         this.customerName = customerName;
         this.address = address;
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
         this.divisionID = divisionID;
+        this.createDate = createDate;
+        this.createdBy = createdBy;
+        this.lastUpdate = lastUpdate;
+        this.lastUpdatedBy = lastUpdatedBy;
         this.country = country;
-        this.division = divsionName;
+        this.division = divisionName;
     }
 
     public String toString() {
@@ -41,6 +51,22 @@ public class Customer {
 
     public int getCustomerID() {
         return customerID;
+    }
+
+    public Timestamp getCreateDate() {
+        return createDate;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public Timestamp getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public String getLastUpdatedBy() {
+        return lastUpdatedBy;
     }
 
     public void setCustomerID(int customerID) {

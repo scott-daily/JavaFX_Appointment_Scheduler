@@ -208,6 +208,7 @@ public class AppointmentController implements Initializable {
 
     @FXML
     void onClickSaveAppt(ActionEvent event) throws SQLException {
+        apptTable.refresh();
         if (startTimeBox.getValue() != null && endTimeBox.getValue() != null && startDatePick.getValue() != null && endDatePick.getValue() != null && custIdBox.getValue() != null) {
             LocalTime startTime = startTimeBox.getValue();
             LocalTime endTime = endTimeBox.getValue();
@@ -254,6 +255,7 @@ public class AppointmentController implements Initializable {
                     AppointmentsLink.addAppointment(newAppt);
                     Appointment.appointmentsList.add(newAppt);
                     Appointment.refreshAppointments();
+                    apptTable.setItems(Appointment.appointmentsList);
 
                 titleField.clear();
                 descriptionField.clear();
@@ -273,6 +275,8 @@ public class AppointmentController implements Initializable {
                 startTimeBox.setPromptText("Start Time");
                 endTimeBox.getSelectionModel().clearSelection();
                 endTimeBox.setPromptText("End Time");
+
+                apptTable.refresh();
                 }
             }
         else {
