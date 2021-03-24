@@ -187,4 +187,14 @@ public class CustomerController implements Initializable {
             custTableView.setItems(Customer.customersList);
         }
     }
+
+    @FXML
+    void onClickModify(ActionEvent event) throws SQLException {
+        if (custTableView.getSelectionModel().getSelectedItem() != null) {
+            ControlData.selectedCustomer = custTableView.getSelectionModel().getSelectedItem();
+            ControlData.selectedCustomerIndex = custTableView.getSelectionModel().getSelectedIndex();
+
+
+        }
+    }
 }

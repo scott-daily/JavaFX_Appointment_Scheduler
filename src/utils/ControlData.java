@@ -1,6 +1,7 @@
 package utils;
 
 import models.Appointment;
+import models.Customer;
 import models.User;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,9 @@ public class ControlData {
     public static Appointment selectedAppointment;
     public static int selectedAppointmentIndex;
     public static int appointmentID;
+
+    public static Customer selectedCustomer;
+    public static int selectedCustomerIndex;
 
     public static void setCurrentUser(User user) {
         ControlData.currentUser= user;

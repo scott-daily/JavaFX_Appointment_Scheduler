@@ -34,7 +34,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="341.0" layoutY="566.0" mnemonicParsing="false" text="Modify Customer">
+      <Button layoutX="341.0" layoutY="566.0" mnemonicParsing="false" onAction="#onClickModify" text="Modify Customer">
          <font>
             <Font size="18.0" />
          </font>
@@ -46,5 +46,9 @@
             <Font size="18.0" />
          </font>
       </Button>
+      <Label layoutX="341.0" layoutY="47.0" text="Appointment Advantage Customers">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
    </children>
 </AnchorPane>

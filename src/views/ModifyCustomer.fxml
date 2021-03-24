@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="624.0" prefWidth="522.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifyCustomerController">
+    <TextField fx:id="idField" disable="true" layoutX="155.0" layoutY="125.0" promptText="Auto Generated ID" />
+    <TextField fx:id="nameField" layoutX="155.0" layoutY="165.0" promptText="Customer Name" />
+    <TextField fx:id="addressField" layoutX="155.0" layoutY="205.0" promptText="Address" />
+    <TextField fx:id="postalField" layoutX="155.0" layoutY="246.0" promptText="Postal Code" />
+    <TextField fx:id="phoneField" layoutX="155.0" layoutY="288.0" promptText="Phone" />
+    <ComboBox fx:id="countryCombo" layoutX="154.0" layoutY="331.0" onAction="#onSelectChangeDiv" prefWidth="150.0" promptText="Country" />
+    <ComboBox fx:id="divisionCombo" layoutX="154.0" layoutY="378.0" prefWidth="150.0" promptText="First Level Division" />
+
+    <Label layoutX="99.0" layoutY="337.0" text="Country" />
+    <Label layoutX="44.0" layoutY="382.0" text="First Level Division" />
+   <Button layoutX="155.0" layoutY="437.0" mnemonicParsing="false" text="Update">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Button>
+   <Button layoutX="280.0" layoutY="437.0" mnemonicParsing="false" text="Cancel">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Button>
+   <Label layoutX="154.0" layoutY="43.0" text="Customer Update Form">
+      <font>
+         <Font name="System Bold" size="18.0" />
+      </font>
+   </Label>
+</AnchorPane>

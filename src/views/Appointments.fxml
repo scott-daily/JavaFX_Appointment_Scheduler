@@ -74,5 +74,9 @@
       <Label layoutX="35.0" layoutY="478.0" text="User ID" />
       <Label layoutX="10.0" layoutY="440.0" text="Customer ID" />
       <Label layoutX="5.0" layoutY="395.0" text="Contact Name" />
+      <Label layoutX="59.0" layoutY="42.0" text="Appointment Advantage">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
    </children>
 </AnchorPane>
