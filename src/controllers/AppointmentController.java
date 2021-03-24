@@ -17,10 +17,7 @@ import javafx.fxml.Initializable;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import models.Appointment;
-import models.Contact;
-import models.Customer;
-import models.User;
+import models.*;
 import utils.ControlData;
 import utils.ValidationChecks;
 
@@ -149,6 +146,18 @@ public class AppointmentController implements Initializable {
         startTimeBox.setItems(timeList);
         endTimeBox.setItems(timeList);
 
+        System.out.println(Division.getDivisionByID(103).getDivision());
+
+        /*for (Division div : Division.divisionsList) {
+            System.out.println(div.getDivision());
+        }*/
+
+        //Customer.refreshCustomers();
+
+        for (Customer cus : Customer.customersList) {
+            System.out.println(cus.getDivision());
+        }
+
     }
 
     @FXML
@@ -157,7 +166,6 @@ public class AppointmentController implements Initializable {
             ControlData.selectedAppointment = apptTable.getSelectionModel().getSelectedItem();
             ControlData.appointmentID = apptTable.getSelectionModel().getSelectedItem().getAppointmentID();
             ControlData.selectedAppointmentIndex = apptTable.getSelectionModel().getSelectedIndex();
-
 
             Parent root = FXMLLoader.load(getClass().getResource("/views/ModifyAppointment.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -220,7 +228,7 @@ public class AppointmentController implements Initializable {
             LocalDate endDate = endDatePick.getValue();
             LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
             LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
-            int customerID = custIdBox.getValue().getId();
+            int customerID = custIdBox.getValue().getCustomerID();
 
             Boolean isSameDate = ValidationChecks.isSameDate(startDate, endDate);
             Boolean isDuringBusinessHours = ValidationChecks.isDuringBusinessHours(startDateTime, endDateTime);
@@ -254,7 +262,7 @@ public class AppointmentController implements Initializable {
             if (isSameDate && isDuringBusinessHours && isNotOverlapping) {
 
                     Appointment newAppt = new Appointment(generateUniqueID(), titleField.getText(), descriptionField.getText(), locationField.getText(), typeField.getText(), Timestamp.valueOf(startDateTime), Timestamp.valueOf(endDateTime),
-                            Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), custIdBox.getValue().getId(), userIdBox.getValue().getUserId(), contactBox.getValue().getContactID(), Contact.getContactByID(contactBox.getValue().getContactID()));
+                            Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), custIdBox.getValue().getCustomerID(), userIdBox.getValue().getUserId(), contactBox.getValue().getContactID(), Contact.getContactByID(contactBox.getValue().getContactID()));
 
                     AppointmentsLink.addAppointment(newAppt);
                     Appointment.appointmentsList.add(newAppt);
@@ -290,7 +298,13 @@ public class AppointmentController implements Initializable {
 
 
     @FXML
-    void onClickViewCust(ActionEvent event) {
-
+    void onClickViewCust(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/views/Customers.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene CustomerViewScene = new Scene(root, 1263, 725);
+        stage.setTitle("Customers");
+        stage.setScene(CustomerViewScene);
+        stage.centerOnScreen();
+        stage.show();
     }
 }

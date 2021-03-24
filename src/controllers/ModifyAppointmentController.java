@@ -121,7 +121,7 @@ public class ModifyAppointmentController implements Initializable {
             LocalDate endDate = endDatePick.getValue();
             LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
             LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
-            int customerID = custIdBox.getValue().getId();
+            int customerID = custIdBox.getValue().getCustomerID();
 
             Boolean isSameDate = ValidationChecks.isSameDate(startDate, endDate);
             Boolean isDuringBusinessHours = ValidationChecks.isDuringBusinessHours(startDateTime, endDateTime);
@@ -156,7 +156,7 @@ public class ModifyAppointmentController implements Initializable {
 
                 try {
                     Appointment updatedAppt = new Appointment(ControlData.selectedAppointment.getAppointmentID(), titleField.getText(), descriptionField.getText(), locationField.getText(), typeField.getText(), Timestamp.valueOf(startDateTime), Timestamp.valueOf(endDateTime),
-                            Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), custIdBox.getValue().getId(), userIdBox.getValue().getUserId(), contactBox.getValue().getContactID(), Contact.getContactByID(contactBox.getValue().getContactID()));
+                            Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), custIdBox.getValue().getCustomerID(), userIdBox.getValue().getUserId(), contactBox.getValue().getContactID(), Contact.getContactByID(contactBox.getValue().getContactID()));
 
                     Appointment.appointmentsList.set(ControlData.selectedAppointmentIndex, updatedAppt);
                     AppointmentsLink.updateAppointment(updatedAppt);

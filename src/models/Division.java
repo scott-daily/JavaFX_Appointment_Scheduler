@@ -1,14 +1,32 @@
 package models;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Division {
     private int divisionID;
-    private String division;
+    private StringProperty division;
     private int countryID;
 
     public static ObservableList<Division> divisionsList = FXCollections.observableArrayList();
+
+    /*public String toString() {
+        return division;
+    }*/
+
+    public StringProperty divisionProperty() {
+        return division;
+    }
+
+    public final String getDivision() {
+        return divisionProperty().get();
+    }
+
+    public final void setDivision(String division) {
+        divisionProperty().set(division);
+    }
 
     public int getDivisionID() {
         return divisionID;
@@ -16,14 +34,6 @@ public class Division {
 
     public void setDivisionID(int divisionID) {
         this.divisionID = divisionID;
-    }
-
-    public String getDivision() {
-        return division;
-    }
-
-    public void setDivision(String division) {
-        this.division = division;
     }
 
     public int getCountryID() {
@@ -36,7 +46,16 @@ public class Division {
 
     public Division(int divisionID, String division, int countryID) {
         this.divisionID = divisionID;
-        this.division = division;
+        this.division = new SimpleStringProperty(division);
         this.countryID = countryID;
+    }
+
+    public static Division getDivisionByID(int divisionID) {
+        for (Division division : Division.divisionsList) {
+            if (division.getDivisionID() == divisionID) {
+                return division;
+            }
+        }
+        return null;
     }
 }

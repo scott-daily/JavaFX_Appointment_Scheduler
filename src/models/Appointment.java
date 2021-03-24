@@ -172,7 +172,7 @@ public class Appointment {
 
     public Customer getCustomerByID(int customerID) {
         for (Customer customer : Customer.customersList) {
-            if (customer.getId() == customerID) {
+            if (customer.getCustomerID() == customerID) {
                 return customer;
             }
         }

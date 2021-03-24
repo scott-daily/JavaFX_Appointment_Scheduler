@@ -2,7 +2,9 @@ package DBLink;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.Country;
 import models.Customer;
+import models.Division;
 import utils.DBConnection;
 
 import java.sql.PreparedStatement;
@@ -29,7 +31,9 @@ public class CustomerLink {
                 String postalCode = rs.getString("Postal_Code");
                 String phoneNumber = rs.getString("Phone");
                 int divisionID = rs.getInt("Division_ID");
-                Customer customer = new Customer(customerID, name, address, postalCode, phoneNumber, divisionID);
+                Division division = Division.getDivisionByID(divisionID);
+                Country country = Country.getCountryByID(Country.getCountryIDByDivisionID(divisionID));
+                Customer customer = new Customer(customerID, name, address, postalCode, phoneNumber, divisionID, country, division);
                 customerList.add(customer);
             }
         } catch (SQLException e) {

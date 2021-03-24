@@ -15,12 +15,13 @@
       <ComboBox fx:id="divisionCombo" layoutX="154.0" layoutY="378.0" prefWidth="150.0" promptText="First Level Division" />
       <TableView fx:id="custTableView" layoutX="341.0" layoutY="125.0" prefHeight="441.0" prefWidth="910.0">
         <columns>
-          <TableColumn fx:id="nameCol" prefWidth="146.3333740234375" text="Customer Name" />
-          <TableColumn fx:id="addressCol" prefWidth="192.33331298828125" text="Address" />
+            <TableColumn fx:id="custIdCol" prefWidth="75.0" text="Customer ID" />
+          <TableColumn fx:id="nameCol" prefWidth="130.0" text="Customer Name" />
+          <TableColumn fx:id="addressCol" prefWidth="175.0" text="Address" />
             <TableColumn fx:id="postalCol" prefWidth="95.3333740234375" text="Postal Code" />
-            <TableColumn fx:id="phoneCol" prefWidth="121.0" text="Phone" />
-            <TableColumn fx:id="countryCol" prefWidth="169.333251953125" text="Country" />
-            <TableColumn fx:id="firstLevelCol" prefWidth="185.6666259765625" text="First Level Division" />
+            <TableColumn fx:id="phoneCol" prefWidth="110.0" text="Phone" />
+            <TableColumn fx:id="countryCol" prefWidth="130.0" text="Country" />
+            <TableColumn fx:id="firstLevelCol" prefWidth="190.0" text="First Level Division" />
         </columns>
       </TableView>
       <Button layoutX="154.0" layoutY="437.0" mnemonicParsing="false" onAction="#onClickSave" text="Save">

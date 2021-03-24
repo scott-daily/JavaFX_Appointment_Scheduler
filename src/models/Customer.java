@@ -1,5 +1,9 @@
 package models;
 
+import DBLink.AppointmentsLink;
+import DBLink.CustomerLink;
+import javafx.beans.value.ObservableStringValue;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -16,30 +20,99 @@ public class Customer {
     public static ObservableList<Customer> customersList = FXCollections.observableArrayList();
 
 
-    public Customer(int customerID, String customerName, String address, String postalCode, String phoneNumber, int divisionID) {
+    public Customer(int customerID, String customerName, String address, String postalCode, String phoneNumber, int divisionID, Country country, Division divsionName) {
         this.customerID = customerID;
         this.customerName = customerName;
         this.address = address;
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
         this.divisionID = divisionID;
+        this.country = country;
+        this.division = divsionName;
     }
 
     public String toString() {
         return String.valueOf(customerID);
     }
 
-    public int getId() { return customerID; }
+    public static void refreshCustomers() {
+        customersList = CustomerLink.getAllCustomers();
+    }
 
-    public String getName() {
+    public int getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
+    }
+
+    public String getCustomerName() {
         return customerName;
     }
 
-    public String getAddress() { return address; }
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
 
-    public String getPostalCode() { return postalCode; }
+    public String getAddress() {
+        return address;
+    }
 
-    public String getPhoneNumber() { return phoneNumber; }
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-    public int getDivisionID() { return divisionID; }
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public int getDivisionID() {
+        return divisionID;
+    }
+
+    public void setDivisionID(int divisionID) {
+        this.divisionID = divisionID;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public String getDivision() {
+        return division.getDivision();
+    }
+
+    public String getCountry() {
+        return country.getCountryName();
+    }
+
+    public void setDivision(Division division) {
+        this.division = division;
+    }
+
+    public static ObservableList<Customer> getCustomersList() {
+        return customersList;
+    }
+
+    // firstNameProperty with no formal parameters and a return type of ObservableValue<String>.
+    public String divisionProperty() {
+        return division.getDivision();
+    }
+
+    public static void setCustomersList(ObservableList<Customer> customersList) {
+        Customer.customersList = customersList;
+    }
 }
