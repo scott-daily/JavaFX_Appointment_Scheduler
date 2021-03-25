@@ -243,6 +243,13 @@ public class AppointmentController implements Initializable {
     void onClickRemoveAppt(ActionEvent event) throws SQLException {
         if (apptTable.getSelectionModel().getSelectedItem() != null) {
             Appointment selectedAppt = apptTable.getSelectionModel().getSelectedItem();
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.setTitle("Appointment Removal");
+            alert.setContentText("Appointment with an ID of: " + selectedAppt.getAppointmentID() + ", and type: " + selectedAppt.getType() + " was removed.");
+            alert.showAndWait();
+
             AppointmentsLink.deleteAppointment(selectedAppt);
             Appointment.appointmentsList.remove(selectedAppt);
             Appointment.refreshAppointments();
