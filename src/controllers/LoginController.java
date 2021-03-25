@@ -70,6 +70,7 @@ public class LoginController implements Initializable {
 
         ZoneId zoneId = ZoneId.systemDefault();
         regionLabel.setText(zoneId.toString());
+
     }
 
     @FXML
