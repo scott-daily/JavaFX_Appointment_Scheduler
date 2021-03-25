@@ -1,7 +1,6 @@
 package controllers;
 
 import DBLink.AppointmentsLink;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,7 +30,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.SplittableRandom;
 
@@ -151,28 +149,45 @@ public class AppointmentController implements Initializable {
         // Write code to provide an alert when there is an appointment within 15 minutes of the user’s log-in. A custom message should be displayed
         // in the user interface and include the appointment ID, date, and time. If the user does not have any appointments within 15 minutes of
         // logging in, display a custom message in the user interface indicating there are no upcoming appointments.
-
         // Note: Since evaluation may be testing your application outside of business hours, your alerts must be robust enough
         // to trigger an appointment within 15 minutes of the local time set on the user’s computer, which may or may not be EST.
 
-        // TEST 15 MINUTE NOTIFICATION BELOW
-        Contact test = new Contact(999, "Arnold", "arnold@test.com");
+        // TEST 15 MINUTE NOTIFICATION BELOW (TEST CODE)
+        /*Contact test = new Contact(999, "Arnold", "arnold@test.com");
         Appointment testAppt = new Appointment(999, "Test", "Test", "Test", "Test", Timestamp.valueOf(LocalDateTime.now().plusMinutes(10)), Timestamp.valueOf(LocalDateTime.now().plusMinutes(40)),Timestamp.valueOf(LocalDateTime.now()), "test", Timestamp.valueOf(LocalDateTime.now()), "test", 2, 1, 999, test);
-        Appointment.appointmentsList.add(testAppt);
+        Appointment.appointmentsList.add(testAppt);*/
 
-        for (Appointment appointment : Appointment.appointmentsList) {
-            if (appointment.getUserID() == ControlData.getCurrentUser().getUserId()) {
-                if (appointment.getStart().toLocalDateTime().isAfter(LocalDateTime.now())) {
-                    Duration duration = Duration.between(LocalDateTime.now(), appointment.getStart().toLocalDateTime());
-                    if (duration.toMinutes() < 15) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-                        alert.setTitle("Appointment Notification");
-                        alert.setContentText("Appointment starting within 15 minutes at: " + appointment.getStart() + ", with an appointment ID of: " + appointment.getAppointmentID() + ".");
-                        alert.showAndWait();
+        Boolean hasAppointmentSoon = false;
+
+        if (ControlData.newLogin) {
+            ControlData.newLogin = false;
+
+            for (Appointment appointment : Appointment.appointmentsList) {
+                if (appointment.getUserID() == ControlData.getCurrentUser().getUserId()) {
+                    if (appointment.getStart().toLocalDateTime().isAfter(LocalDateTime.now())) {
+                        Duration duration = Duration.between(LocalDateTime.now(), appointment.getStart().toLocalDateTime());
+                        if (duration.toMinutes() < 15) {
+                            hasAppointmentSoon = true;
+                            ControlData.newLoginNoAppt = false;
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                            alert.setTitle("Appointment Notification");
+                            alert.setContentText("Appointment starting within 15 minutes at: " + appointment.getStart() + ", with an appointment ID of: " + appointment.getAppointmentID() + ".");
+                            alert.showAndWait();
+                        }
                     }
                 }
             }
+        }
+
+        if (!hasAppointmentSoon && ControlData.newLoginNoAppt) {
+            ControlData.newLoginNoAppt = false;
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.setTitle("Appointment Notification");
+            alert.setContentText("There are no appointments for this user starting within 15 minutes.");
+            alert.showAndWait();
+            hasAppointmentSoon = false;
         }
     }
 

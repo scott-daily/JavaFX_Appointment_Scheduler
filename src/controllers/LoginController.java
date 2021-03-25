@@ -76,6 +76,9 @@ public class LoginController implements Initializable {
     @FXML
     public void onClickLogin(ActionEvent actionEvent) throws IOException {
 
+        ControlData.newLogin = true;
+        ControlData.newLoginNoAppt = true;
+
         User.usersList.addAll(UsersLink.getAllUsers());
         Contact.contactsList.addAll(ContactLink.getAllContacts());
         Appointment.appointmentsList.addAll(AppointmentsLink.getAllAppointments());

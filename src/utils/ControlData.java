@@ -19,6 +19,9 @@ public class ControlData {
     public static Customer selectedCustomer;
     public static int selectedCustomerIndex;
 
+    public static Boolean newLogin = false;
+    public static Boolean newLoginNoAppt = false;
+
     public static void setCurrentUser(User user) {
         ControlData.currentUser= user;
     }
