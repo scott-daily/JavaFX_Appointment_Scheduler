@@ -215,6 +215,13 @@ public class AppointmentController implements Initializable {
             alert.showAndWait();
         }
     }
+
+    @FXML
+    void onClickViewReports(ActionEvent event) throws IOException {
+
+    }
+
+
     /**
      * Stores used Appointment ID's so that new Appointments have unique ID's.
      */

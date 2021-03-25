@@ -200,8 +200,6 @@ public class CustomerController implements Initializable {
         if (custTableView.getSelectionModel().getSelectedItem() != null) {
             ControlData.selectedCustomer = custTableView.getSelectionModel().getSelectedItem();
             ControlData.selectedCustomerIndex = custTableView.getSelectionModel().getSelectedIndex();
-            //ControlData.selectedCustomerCountryID = custTableView.getSelectionModel().getSelectedItem().getCountry().g
-
 
             Parent root = FXMLLoader.load(getClass().getResource("/views/ModifyCustomer.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
