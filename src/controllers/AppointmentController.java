@@ -29,7 +29,9 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.SplittableRandom;
 
@@ -335,7 +337,6 @@ public class AppointmentController implements Initializable {
         }
     }
 
-
     @FXML
     void onClickViewCust(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/views/Customers.fxml"));
@@ -346,4 +347,38 @@ public class AppointmentController implements Initializable {
         stage.centerOnScreen();
         stage.show();
     }
+
+    @FXML
+    void onClickViewAll(ActionEvent event) {
+        apptTable.setItems(Appointment.appointmentsList);
+    }
+
+    @FXML
+    void onClickViewMonth(ActionEvent event) {
+        ObservableList<Appointment> monthlyAppts = FXCollections.observableArrayList();
+
+        for (Appointment appt : Appointment.appointmentsList) {
+            if (appt.getStart().toLocalDateTime().getMonthValue() == LocalDateTime.now().getMonthValue()) {
+                monthlyAppts.add(appt);
+            }
+        }
+
+        apptTable.setItems(monthlyAppts);
+    }
+
+    @FXML
+    void onClickViewWeek(ActionEvent event) {
+
+        ObservableList<Appointment> weeklyAppts = FXCollections.observableArrayList();
+        int currentWeekOfYear = LocalDate.now().get(WeekFields.of(Locale.getDefault()).weekOfYear());
+
+        for (Appointment appt : Appointment.appointmentsList) {
+            if (appt.getStart().toLocalDateTime().toLocalDate().get(WeekFields.of(Locale.getDefault()).weekOfYear()) == currentWeekOfYear) {
+                weeklyAppts.add(appt);
+            }
+        }
+
+        apptTable.setItems(weeklyAppts);
+    }
+
 }
