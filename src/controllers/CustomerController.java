@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import models.*;
 import utils.ControlData;
@@ -118,7 +119,7 @@ public class CustomerController implements Initializable {
     /**
      * Stores used Appointment ID's so that new Appointments have unique ID's.
      */
-    private ArrayList<Integer> usedIdArray = new ArrayList<>();
+    private ArrayList<Integer> usedIdArray = new ArrayList<Integer>();
 
     /**
      * Generates a unique ID to be used in a Part constructor method.
@@ -180,6 +181,12 @@ public class CustomerController implements Initializable {
                     AppointmentsLink.deleteAppointment(appointment);
                 }
             }
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.setTitle("Customer Removal");
+            alert.setContentText(selectedCustomer.getCustomerName() + " and any associated appointments will be removed.");
+            alert.showAndWait();
 
             CustomerLink.deleteCustomer(selectedCustomer);
             Customer.customersList.remove(selectedCustomer);

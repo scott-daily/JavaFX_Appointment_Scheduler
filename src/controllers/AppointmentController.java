@@ -1,6 +1,7 @@
 package controllers;
 
 import DBLink.AppointmentsLink;
+import models.Appointment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -217,7 +218,7 @@ public class AppointmentController implements Initializable {
     /**
      * Stores used Appointment ID's so that new Appointments have unique ID's.
      */
-    private ArrayList<Integer> usedIdArray = new ArrayList<>();
+    private ArrayList<Integer> usedIdArray = new ArrayList<Integer>();
 
     /**
      * Generates a unique ID to be used in a Part constructor method.
@@ -302,13 +303,13 @@ public class AppointmentController implements Initializable {
 
             if (isSameDate && isDuringBusinessHours && isNotOverlapping) {
 
-                    Appointment newAppt = new Appointment(generateUniqueID(), titleField.getText(), descriptionField.getText(), locationField.getText(), typeField.getText(), Timestamp.valueOf(startDateTime), Timestamp.valueOf(endDateTime),
-                            Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), custIdBox.getValue().getCustomerID(), userIdBox.getValue().getUserId(), contactBox.getValue().getContactID(), Contact.getContactByID(contactBox.getValue().getContactID()));
+                Appointment newAppt = new Appointment(generateUniqueID(), titleField.getText(), descriptionField.getText(), locationField.getText(), typeField.getText(), Timestamp.valueOf(startDateTime), Timestamp.valueOf(endDateTime),
+                        Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), custIdBox.getValue().getCustomerID(), userIdBox.getValue().getUserId(), contactBox.getValue().getContactID(), Contact.getContactByID(contactBox.getValue().getContactID()));
 
-                    AppointmentsLink.addAppointment(newAppt);
-                    Appointment.appointmentsList.add(newAppt);
-                    Appointment.refreshAppointments();
-                    apptTable.setItems(Appointment.appointmentsList);
+                AppointmentsLink.addAppointment(newAppt);
+                Appointment.appointmentsList.add(newAppt);
+                Appointment.refreshAppointments();
+                apptTable.setItems(Appointment.appointmentsList);
 
                 titleField.clear();
                 descriptionField.clear();
@@ -377,8 +378,6 @@ public class AppointmentController implements Initializable {
                 weeklyAppts.add(appt);
             }
         }
-
         apptTable.setItems(weeklyAppts);
     }
-
 }
