@@ -15,6 +15,7 @@ import models.NumberAppointmentTypeReport;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class NumberAppointmentTypeReportController implements Initializable {
@@ -35,8 +36,17 @@ public class NumberAppointmentTypeReportController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        reportTable.setItems(NumberAppointmentTypeReport.numApptTypeList);
+        try {
+            NumberAppointmentTypeReport.refreshNumApptList();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        monthCol.setCellValueFactory(new PropertyValueFactory<>("month"));
+        countCol.setCellValueFactory(new PropertyValueFactory<>("count"));
+
+        reportTable.setItems(NumberAppointmentTypeReport.numApptTypeList);
     }
 
     @FXML
