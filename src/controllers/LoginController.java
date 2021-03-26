@@ -3,7 +3,6 @@ package controllers;
 import DBLink.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -19,14 +18,11 @@ import utils.ControlData;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.Temporal;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 public class LoginController implements Initializable {
 

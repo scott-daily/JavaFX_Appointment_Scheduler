@@ -75,6 +75,12 @@ public class CustomerController implements Initializable {
     @FXML
     private TableColumn<Customer, Integer> custIdCol;
 
+    /**
+     * Initializes the Customer Controller. Lambda used as a parameter to the setCellFactoryValue method,
+     * it iterates over each value and adds a read only wrapper to each returned value.
+     * @param url The location used to resolve relative paths for the root object.
+     * @param resourceBundle The resources used to localize the root object.
+     */
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
 
@@ -83,6 +89,7 @@ public class CustomerController implements Initializable {
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         postalCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+
         countryCol.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getCountry()));
         firstLevelCol.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getDivision()));
 

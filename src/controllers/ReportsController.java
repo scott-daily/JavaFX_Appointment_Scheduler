@@ -56,7 +56,13 @@ public class ReportsController implements Initializable {
     }
 
     @FXML
-    void onClickViewUser(ActionEvent event) {
-
+    void onClickViewDivision(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/views/DivisionCountReport.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 689, 549);
+        stage.setTitle("Type & Month Count Report");
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
     }
 }

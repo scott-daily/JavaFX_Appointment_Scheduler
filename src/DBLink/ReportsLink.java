@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.Contact;
 import models.ContactScheduleReport;
+import models.DivisionCountReport;
 import models.NumberAppointmentTypeReport;
 import utils.DBConnection;
 
@@ -61,7 +62,6 @@ public class ReportsLink {
                 Timestamp end = rs.getTimestamp("End");
                 int customerID = rs.getInt("Customer_ID");
 
-
                 ContactScheduleReport report = new ContactScheduleReport(contact, appointmentID, title, type, description, start, end, customerID);
                 contactScheduleList.add(report);
             }
@@ -69,5 +69,29 @@ public class ReportsLink {
             e.printStackTrace();
         }
         return contactScheduleList;
+    }
+
+    public static ObservableList<DivisionCountReport> getDivisionCountReport() throws SQLException {
+
+        ObservableList<DivisionCountReport> divisionCountList = FXCollections.observableArrayList();
+
+        try {
+
+            String sql = "SELECT Division, COUNT(Division) AS \"Division Count\" FROM first_level_divisions join customers on first_level_divisions.Division_ID = customers.Division_ID GROUP BY Division";
+
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String division = rs.getString("Division");
+                int divisionCount = rs.getInt("Division Count");
+
+                DivisionCountReport report = new DivisionCountReport(division, divisionCount);
+                divisionCountList.add(report);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return divisionCountList;
     }
 }
