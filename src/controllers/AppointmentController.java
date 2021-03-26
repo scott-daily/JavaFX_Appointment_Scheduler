@@ -218,7 +218,13 @@ public class AppointmentController implements Initializable {
 
     @FXML
     void onClickViewReports(ActionEvent event) throws IOException {
-
+        Parent root = FXMLLoader.load(getClass().getResource("/views/Reports.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 925, 474);
+        stage.setTitle("Reports");
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
     }
 
 
