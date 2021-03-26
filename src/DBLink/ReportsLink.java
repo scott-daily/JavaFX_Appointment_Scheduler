@@ -3,12 +3,14 @@ package DBLink;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.Contact;
+import models.ContactScheduleReport;
 import models.NumberAppointmentTypeReport;
 import utils.DBConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.DateFormatSymbols;
 
 public class ReportsLink {
@@ -36,5 +38,36 @@ public class ReportsLink {
             e.printStackTrace();
         }
         return numberApptReportList;
+    }
+
+    public static ObservableList<ContactScheduleReport> getContactScheduleReport() throws SQLException {
+
+        ObservableList<ContactScheduleReport> contactScheduleList = FXCollections.observableArrayList();
+
+        try {
+
+            String sql = "SELECT contacts.Contact_Name, Appointment_ID, Title, Type, Description, Start, End, Customer_ID FROM appointments JOIN contacts USING(Contact_ID) GROUP BY Contact_ID, Appointment_ID";
+
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String contact = rs.getString("Contact_Name");
+                int appointmentID = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String type = rs.getString("Type");
+                String description = rs.getString("Description");
+                Timestamp start = rs.getTimestamp("Start");
+                Timestamp end = rs.getTimestamp("End");
+                int customerID = rs.getInt("Customer_ID");
+
+
+                ContactScheduleReport report = new ContactScheduleReport(contact, appointmentID, title, type, description, start, end, customerID);
+                contactScheduleList.add(report);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return contactScheduleList;
     }
 }

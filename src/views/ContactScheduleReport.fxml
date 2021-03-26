@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="689.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ContactScheduleReportController">
+    <children>
+        <Label layoutX="245.0" layoutY="37.0" text="Contact Appointment Schedule">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <TableView fx:id="reportTable" layoutX="107.0" layoutY="156.0" prefHeight="457.0" prefWidth="1200.0">
+            <columns>
+                <TableColumn fx:id="contactCol" prefWidth="175.66668701171875" text="Contact Name" />
+                <TableColumn fx:id="appointmentID" prefWidth="100" text="Appointment ID" />
+                <TableColumn fx:id="title" minWidth="5.3333892822265625" prefWidth="127.6666259765625" text="Title" />
+                <TableColumn fx:id="type" prefWidth="125" text="Type" />
+                <TableColumn fx:id="description" prefWidth="208" text="Description" />
+                <TableColumn fx:id="start" prefWidth="175" text="Start" />
+                <TableColumn fx:id="end" prefWidth="175" text="End" />
+                <TableColumn fx:id="customerID" prefWidth="110" text="Customer ID" />
+            </columns>
+        </TableView>
+        <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#onClickBack" text="Back">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>

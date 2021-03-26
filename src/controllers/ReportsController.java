@@ -34,8 +34,14 @@ public class ReportsController implements Initializable {
     }
 
     @FXML
-    void onClickViewContact(ActionEvent event) {
-
+    void onClickViewContact(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/views/ContactScheduleReport.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 1400, 689);
+        stage.setTitle("Type & Month Count Report");
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
     }
 
     @FXML
