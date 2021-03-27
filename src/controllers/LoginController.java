@@ -25,25 +25,43 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-
+    /**
+     * TextField to hold a username.
+     */
     @FXML
     private TextField username;
-
+    /**
+     * TextField to hold a user password.
+     */
     @FXML
     private TextField password;
-
+    /**
+     * Label for login.
+     */
     @FXML
     private Label loginTitle;
-
+    /**
+     * Label to display region information.
+     */
     @FXML
     private Label regionLabel;
-
+    /**
+     * Button to sign in.
+     */
     @FXML
     private Button signinButton;
-
+    /**
+     * Button to exit the program.
+     */
     @FXML
     private Button exitButton;
 
+    /**
+     * Loads the resource bundle to enable the login view to display in English or French based on a system's locale.  Detects
+     * the user's time zone information and displays it in the regionLabel.
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -69,6 +87,11 @@ public class LoginController implements Initializable {
 
     }
 
+    /**
+     * Pulls data out of database into model list to be accessed later. Stores login attempts into a text file to examine later.
+     * @param actionEvent Occurs when login button is clicked.
+     * @throws IOException Thrown if FXML Loader fails.
+     */
     @FXML
     public void onClickLogin(ActionEvent actionEvent) throws IOException {
 
@@ -113,7 +136,10 @@ public class LoginController implements Initializable {
             }
         }
     }
-
+    /**
+     * Exits the program when the exit button is clicked.
+     * @param event Occurs when the exit button is clicked.
+     */
     @FXML
     public void onClickExit(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit the program?");

@@ -11,9 +11,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import models.Appointment;
 import models.Country;
 import models.Customer;
 import models.Division;
@@ -25,30 +25,52 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-
+/**
+ * ModifyAppointmentController controls the modify customer view and related functions.
+ */
 public class ModifyCustomerController implements Initializable {
-
+    /**
+     * Field for customer ID.
+     */
     @FXML
     private TextField idField;
-
+    /**
+     * Field for customer name.
+     */
     @FXML
     private TextField nameField;
-
+    /**
+     * Field for customer address.
+     */
     @FXML
     private TextField addressField;
-
+    /**
+     * Field for customer postal code.
+     */
     @FXML
     private TextField postalField;
-
+    /**
+     * Field for customer phone number.
+     */
     @FXML
     private TextField phoneField;
-
+    /**
+     * ComboBox for customer country.
+     */
     @FXML
     private ComboBox<Country> countryCombo;
-
+    /**
+     * ComboBox for customer first level division.
+     */
     @FXML
     private ComboBox<Division> divisionCombo;
-
+    @FXML
+    private DatePicker endDatePick;
+    /**
+     * Loads the selected customers data into the associated fields.
+     * @param url The location used to resolve relative paths for the root object.
+     * @param resourceBundle The resources used to localize the root object.
+     */
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
         Customer selectedCustomer = ControlData.selectedCustomer;
@@ -76,7 +98,11 @@ public class ModifyCustomerController implements Initializable {
         phoneField.setText(selectedCustomer.getPhoneNumber());
 
     }
-
+    /**
+     * Loads the main appointments view.
+     * @param event Occurs when cancel button is clicked.
+     * @throws IOException Thrown when FXML Loader fails.
+     */
     @FXML
     void onClickCancel(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/views/Customers.fxml"));
@@ -87,7 +113,10 @@ public class ModifyCustomerController implements Initializable {
         stage.centerOnScreen();
         stage.show();
     }
-
+    /**
+     * Updates the stored customer within the database with the form fields after performing validation checks.
+     * @param event Occurs when the update button is clicked.
+     */
     @FXML
     void onClickUpdate(ActionEvent event) throws SQLException, IOException {
         if (countryCombo.getValue() != null && divisionCombo.getValue() != null && nameField.getText() != null && addressField.getText() != null && postalField.getText() != null && phoneField.getText() != null) {
@@ -109,6 +138,10 @@ public class ModifyCustomerController implements Initializable {
         }
     }
 
+    /**
+     * Changes the first level division when a user changes the selected country combo box value.
+     * @param event Occurs when a new country is selected.
+     */
     @FXML
     public void onSelectChangeDiv(ActionEvent event){
         Country selectedCountry = countryCombo.getValue();

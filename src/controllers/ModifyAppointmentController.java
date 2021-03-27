@@ -27,45 +27,75 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
-
+/**
+ * ModifyAppointmentController controls the modify appointment view and related functions.
+ */
 public class ModifyAppointmentController implements Initializable {
-
+    /**
+     * Field for appointment ID.
+     */
     @FXML
     private TextField idField;
-
+    /**
+     * Field for appointment title.
+     */
     @FXML
     private TextField titleField;
-
+    /**
+     * Field for appointment description.
+     */
     @FXML
     private TextField descriptionField;
-
+    /**
+     * Field for appointment location.
+     */
     @FXML
     private TextField locationField;
-
+    /**
+     * Field for appointment type.
+     */
     @FXML
     private TextField typeField;
-
+    /**
+     * ComboBox for appointment contact.
+     */
     @FXML
     private ComboBox<Contact> contactBox;
-
+    /**
+     * ComboBox for appointment start time.
+     */
     @FXML
     private ComboBox<LocalTime> startTimeBox;
-
+    /**
+     * ComboBox for appointment end time.
+     */
     @FXML
     private ComboBox<LocalTime> endTimeBox;
-
+    /**
+     * ComboBox for customer ID.
+     */
     @FXML
     private ComboBox<Customer> custIdBox;
-
+    /**
+     * ComboBox for user ID.
+     */
     @FXML
     private ComboBox<User> userIdBox;
-
+    /**
+     * DatePicker for appointment start date.
+     */
     @FXML
     private DatePicker startDatePick;
-
+    /**
+     * DatePicker for appointment end date.
+     */
     @FXML
     private DatePicker endDatePick;
-
+    /**
+     * Loads the selected appointments data into the associated fields.
+     * @param url The location used to resolve relative paths for the root object.
+     * @param resourceBundle The resources used to localize the root object.
+     */
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
 
@@ -112,8 +142,12 @@ public class ModifyAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Updates the stored appointment within the database with the form fields after performing validation checks.
+     * @param event Occurs when the update button is clicked.
+     */
     @FXML
-    void onClickUpdate(ActionEvent event) throws SQLException {
+    void onClickUpdate(ActionEvent event) {
         if (startTimeBox.getValue() != null && endTimeBox.getValue() != null && startDatePick.getValue() != null && endDatePick.getValue() != null && custIdBox.getValue() != null) {
             LocalTime startTime = startTimeBox.getValue();
             LocalTime endTime = endTimeBox.getValue();
@@ -177,14 +211,19 @@ public class ModifyAppointmentController implements Initializable {
         }
     }
 
-        @FXML
-        void onClickCancel (ActionEvent event) throws IOException {
-            Parent root = FXMLLoader.load(getClass().getResource("/views/Appointments.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 1600, 1000);
-            stage.setTitle("Appointments");
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.show();
-        }
+    /**
+     * Loads the main appointments view.
+     * @param event Occurs when cancel button is clicked.
+     * @throws IOException Thrown when FXML Loader fails.
+     */
+    @FXML
+    void onClickCancel (ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/views/Appointments.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 1600, 1000);
+        stage.setTitle("Appointments");
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
+    }
 }
