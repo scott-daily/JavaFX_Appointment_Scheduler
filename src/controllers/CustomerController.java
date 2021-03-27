@@ -28,6 +28,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.SplittableRandom;
 
+/**
+ * Class to control the Customer view.
+ */
 public class CustomerController implements Initializable {
     /**
      * TextField to hold a customer ID.

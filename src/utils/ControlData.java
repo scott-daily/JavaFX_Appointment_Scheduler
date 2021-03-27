@@ -6,6 +6,9 @@ import models.User;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+/**
+ * Class used to hold data and methods that are required by multiple controllers.
+ */
 public class ControlData {
     /**
      * User object to store the currently logged in user.

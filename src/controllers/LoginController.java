@@ -23,6 +23,9 @@ import java.util.MissingResourceException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Class to control all login related actions.
+ */
 public class LoginController implements Initializable {
     /**
      * TextField to hold a username.
