@@ -10,8 +10,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ *  Manages SQL queries for contact related data.
+ */
 public class ContactLink {
-
+    /**
+     * Gets a list of all contacts stored in the database.
+     * @return An ObservableList of Contact objects.
+     */
     public static ObservableList<Contact> getAllContacts() {
 
         ObservableList<Contact> contactList = FXCollections.observableArrayList();

@@ -7,10 +7,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 
+/**
+ *  Manages SQL queries for appointment related data.
+ */
 public class AppointmentsLink {
-
+    /**
+     * Gets all appointment objects from the database and stores them in the Appointment model's appointment list.
+     * @return Returns an ObservableList of Appointment objects.
+     */
     public static ObservableList<Appointment> getAllAppointments() {
 
         ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
@@ -47,6 +52,10 @@ public class AppointmentsLink {
         return appointmentList;
     }
 
+    /**
+     * Adds a new appointment to the appointments table witin the database.
+     * @param appointment The appointment to add to the database.
+     */
     public static void addAppointment(Appointment appointment) {
 
         String sql = "INSERT INTO appointments(Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -74,6 +83,11 @@ public class AppointmentsLink {
         }
     }
 
+    /**
+     * Deletes the given appointment from the database.
+     * @param appointment The appointment to delete.
+     * @throws SQLException Thrown if the appointment doesn't exist.
+     */
     public static void deleteAppointment(Appointment appointment) throws SQLException {
 
         try {
@@ -86,6 +100,11 @@ public class AppointmentsLink {
         }
     }
 
+    /**
+     * Updates the selected appointment.
+     * @param appointment The appointment to update.
+     * @throws SQLException Thrown if there is an SQL error.
+     */
     public static void updateAppointment(Appointment appointment) throws SQLException {
 
         String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?;";

@@ -7,8 +7,14 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 
+/**
+ *  Manages SQL queries for country related data.
+ */
 public class CountriesLink {
-
+    /**
+     * Gets all country objects stored in the database.
+     * @return An ObservableList of Country objects.
+     */
     public static ObservableList<Country> getAllCountries() {
 
         ObservableList<Country> countryList = FXCollections.observableArrayList();

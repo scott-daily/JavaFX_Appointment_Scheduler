@@ -2,7 +2,6 @@ package DBLink;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import models.Customer;
 import models.Division;
 import utils.DBConnection;
 
@@ -10,10 +9,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ *  Manages SQL queries for division related data.
+ */
 public class DivisionLink {
 
     public static ObservableList<Division> getAllDivisions() {
-
+        /**
+         * Gets all Division objects from the database and stores them in the Division model's appointment list.
+         * @return Returns an ObservableList of Division objects.
+         */
         ObservableList<Division> divisionList = FXCollections.observableArrayList();
 
         try {

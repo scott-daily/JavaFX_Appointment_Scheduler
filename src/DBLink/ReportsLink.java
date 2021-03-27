@@ -13,9 +13,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DateFormatSymbols;
-
+/**
+ *  Manages SQL queries for report related data.
+ */
 public class ReportsLink {
-
+    /**
+     * Gets all NumberApptReport object data from the database and stores them in the NumberApptReport model's object list.
+     * @return Returns an ObservableList of NumberApptReport objects.
+     */
     public static ObservableList<NumberAppointmentTypeReport> getNumberApptReport() throws SQLException {
 
         ObservableList<NumberAppointmentTypeReport> numberApptReportList = FXCollections.observableArrayList();
@@ -40,7 +45,10 @@ public class ReportsLink {
         }
         return numberApptReportList;
     }
-
+    /**
+     * Gets all ContactScheduleReport object data from the database and stores them in the ContactScheduleReport model's object list.
+     * @return Returns an ObservableList of ContactScheduleReport objects.
+     */
     public static ObservableList<ContactScheduleReport> getContactScheduleReport() throws SQLException {
 
         ObservableList<ContactScheduleReport> contactScheduleList = FXCollections.observableArrayList();
@@ -70,7 +78,10 @@ public class ReportsLink {
         }
         return contactScheduleList;
     }
-
+    /**
+     * Gets all DivisionCountReport object data from the database and stores them in the DivisionCountReport model's object list.
+     * @return Returns an ObservableList of DivisionCountReport objects.
+     */
     public static ObservableList<DivisionCountReport> getDivisionCountReport() throws SQLException {
 
         ObservableList<DivisionCountReport> divisionCountList = FXCollections.observableArrayList();

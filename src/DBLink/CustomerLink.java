@@ -13,8 +13,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Manages SQL queries for customer related data.
+ */
 public class CustomerLink {
-
+    /**
+     * Gets a list of all stored customer objects from the database.
+     * @return An ObservableList of Customer objects.
+     */
     public static ObservableList<Customer> getAllCustomers() {
 
         ObservableList<Customer> customerList = FXCollections.observableArrayList();
@@ -48,6 +54,10 @@ public class CustomerLink {
         return customerList;
     }
 
+    /**
+     * Add a customer object to the database.
+     * @param customer The customer object to add.
+     */
     public static void addCustomer(Customer customer) {
 
         String sql = "INSERT INTO customers(Customer_ID, Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -72,6 +82,11 @@ public class CustomerLink {
         }
     }
 
+    /**
+     * Delete a customer from the database.
+     * @param customer The customer to delete.
+     * @throws SQLException Thrown if there is an SQL error.
+     */
     public static void deleteCustomer(Customer customer) throws SQLException {
 
         try {
@@ -84,6 +99,11 @@ public class CustomerLink {
         }
     }
 
+    /**
+     * Updates a given customer object.
+     * @param customer The customer to update.
+     * @throws SQLException Thrown if there is an SQL error.
+     */
     public static void updateCustomer(Customer customer) throws SQLException {
 
         String sql = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Update = ?, Last_Updated_By = ?, Division_ID = ? WHERE Customer_ID = ?;";
