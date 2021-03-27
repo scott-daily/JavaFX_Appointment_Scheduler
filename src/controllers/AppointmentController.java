@@ -11,7 +11,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
@@ -33,83 +32,166 @@ import java.time.LocalTime;
 import java.time.temporal.WeekFields;
 import java.util.*;
 
+/**
+ * AppointmentController controls the main screen's appointment view and related functions.
+ */
 public class AppointmentController implements Initializable {
-
+    /**
+     * TableView that holds a view of all Appointments in the database.
+     */
     @FXML
     private TableView<Appointment> apptTable;
 
+    /**
+     * TableColumn that holds an appointment ID.
+     */
     @FXML
     private TableColumn<Appointment, Integer> apptIdCol;
 
+    /**
+     * TableColumn that holds an appointment title.
+     */
     @FXML
     private TableColumn<Appointment, String> titleCol;
 
+    /**
+     * TableColumn that holds an appointment description.
+     */
     @FXML
     private TableColumn<Appointment, String> descriptionCol;
 
+    /**
+     * TableColumn that holds an appointment location.
+     */
     @FXML
     private TableColumn<Appointment, String> locationCol;
 
+    /**
+     * TableColumn that holds an appointment contact.
+     */
     @FXML
     private TableColumn<Appointment, Contact> contactCol;
 
+    /**
+     * TableColumn that holds an appointment type.
+     */
     @FXML
     private TableColumn<Appointment, String> typeCol;
 
+    /**
+     * TableColumn that holds an appointment start time and date.
+     */
     @FXML
     private TableColumn<Appointment, LocalDateTime> startCol;
 
+    /**
+     * TableColumn that holds an appointment end time and date.
+     */
     @FXML
     private TableColumn<Appointment, LocalDateTime> endCol;
 
+    /**
+     * TableColumn that holds an appointment's customer ID.
+     */
     @FXML
     private TableColumn<Appointment, Integer> custIdCol;
 
+    /**
+     * TextField that holds an appointment ID.
+     */
     @FXML
     private TextField idField;
 
+    /**
+     * TextField that holds an appointment title.
+     */
     @FXML
     private TextField titleField;
 
+    /**
+     * TextField that holds an appointment description.
+     */
     @FXML
     private TextField descriptionField;
 
+    /**
+     * TextField that holds an appointment location.
+     */
     @FXML
     private TextField locationField;
 
+    /**
+     * TextField that holds an appointment type.
+     */
     @FXML
     private TextField typeField;
 
+    /**
+     * ComboBox that holds an appointment contact.
+     */
     @FXML
     private ComboBox<Contact> contactBox;
 
+    /**
+     * ComboBox that holds an appointment start time.
+     */
     @FXML
     private ComboBox<LocalTime> startTimeBox;
 
+    /**
+     * ComboBox that holds an appointment end time.
+     */
     @FXML
     private ComboBox<LocalTime> endTimeBox;
 
+    /**
+     * RadioButton that shows monthly appointments.
+     */
     @FXML
     private RadioButton viewMonthRadio;
 
+    /**
+     * RadioButton that shows weekly appointments.
+     */
     @FXML
     private RadioButton viewWeekRadio;
 
+    /**
+     * ComboBox that holds a customer ID.
+     */
     @FXML
     private ComboBox<Customer> custIdBox;
 
+    /**
+     * ComboBox that holds a user ID.
+     */
     @FXML
     private ComboBox<User> userIdBox;
 
+    /**
+     * RadioButton that shows all appointments.
+     */
     @FXML
     private RadioButton viewAllRadio;
 
+    /**
+     * DatePicker that holds a start date.
+     */
     @FXML
     private DatePicker startDatePick;
 
+    /**
+     * DatePicker that holds a end date.
+     */
     @FXML
     private DatePicker endDatePick;
 
+    /**
+     * Loads the Appointment TableView with all appointments in the database and initializes form controls.  Checks to
+     * see if there are any appointments starting within 15 minutes of the associated User ID that just logged in.
+     * @param url The location used to resolve relative paths for the root object.
+     * @param resourceBundle The resources used to localize the root object.
+     */
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
 
@@ -146,17 +228,6 @@ public class AppointmentController implements Initializable {
         startTimeBox.setItems(timeList);
         endTimeBox.setItems(timeList);
 
-        // Write code to provide an alert when there is an appointment within 15 minutes of the user’s log-in. A custom message should be displayed
-        // in the user interface and include the appointment ID, date, and time. If the user does not have any appointments within 15 minutes of
-        // logging in, display a custom message in the user interface indicating there are no upcoming appointments.
-        // Note: Since evaluation may be testing your application outside of business hours, your alerts must be robust enough
-        // to trigger an appointment within 15 minutes of the local time set on the user’s computer, which may or may not be EST.
-
-        // TEST 15 MINUTE NOTIFICATION BELOW (TEST CODE)
-        /*Contact test = new Contact(999, "Arnold", "arnold@test.com");
-        Appointment testAppt = new Appointment(999, "Test", "Test", "Test", "Test", Timestamp.valueOf(LocalDateTime.now().plusMinutes(10)), Timestamp.valueOf(LocalDateTime.now().plusMinutes(40)),Timestamp.valueOf(LocalDateTime.now()), "test", Timestamp.valueOf(LocalDateTime.now()), "test", 2, 1, 999, test);
-        Appointment.appointmentsList.add(testAppt);*/
-
         Boolean hasAppointmentSoon = false;
 
         if (ControlData.newLogin) {
@@ -191,6 +262,11 @@ public class AppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Transitions to the modify appointment screen to adjust an appointment.
+     * @param event Occurs when modify appointment button is clicked.
+     * @throws IOException Throws if error occurs during FXML loading.
+     */
     @FXML
     void onClickModifyAppt(ActionEvent event) throws IOException {
         if (apptTable.getSelectionModel().getSelectedItem() != null) {
@@ -213,6 +289,11 @@ public class AppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Transitions to the report viewing screen.
+     * @param event Occurs when view reports button is clicked.
+     * @throws IOException Throws if error occurs during FXML loading.
+     */
     @FXML
     void onClickViewReports(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/views/Reports.fxml"));
@@ -231,7 +312,7 @@ public class AppointmentController implements Initializable {
     private ArrayList<Integer> usedIdArray = new ArrayList<Integer>();
 
     /**
-     * Generates a unique ID to be used in a Part constructor method.
+     * Generates a unique ID to be used in the Appointment constructor method.
      * Uses the SplittableRandom class to generate a unique sequence of values between the specified bounds.
      * Uses boolean value isUnique to track if the generated ID already exists within the usedIdArray.
      * @return Returns an int that represents a unique ID between 1 and 1000.
@@ -252,6 +333,11 @@ public class AppointmentController implements Initializable {
         return randomID;
     }
 
+    /**
+     * Deletes the selected appointment.
+     * @param event Occurs when an appointment is selected and the remove button is clicked.
+     * @throws IOException Throws if error occurs during FXML loading.
+     */
     @FXML
     void onClickRemoveAppt(ActionEvent event) throws SQLException {
         if (apptTable.getSelectionModel().getSelectedItem() != null) {
@@ -270,6 +356,11 @@ public class AppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Saves the selected appointment.
+     * @param event Occurs when an appointment is selected and the save button is clicked.
+     * @throws IOException Throws if error occurs during FXML loading.
+     */
     @FXML
     void onClickSaveAppt(ActionEvent event) throws SQLException {
         apptTable.refresh();
@@ -355,6 +446,11 @@ public class AppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Transitions to the customer view screen.
+     * @param event Occurs when the view customers button is clicked.
+     * @throws IOException Throws if error occurs during FXML loading.
+     */
     @FXML
     void onClickViewCust(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/views/Customers.fxml"));
@@ -366,11 +462,19 @@ public class AppointmentController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Reveals all appointments in the database.
+     * @param event Occurs when radio button is clicked.
+     */
     @FXML
     void onClickViewAll(ActionEvent event) {
         apptTable.setItems(Appointment.appointmentsList);
     }
 
+    /**
+     * Displays only appointments in the current month.
+     * @param event Occurs when radio button is clicked.
+     */
     @FXML
     void onClickViewMonth(ActionEvent event) {
         ObservableList<Appointment> monthlyAppts = FXCollections.observableArrayList();
@@ -384,6 +488,10 @@ public class AppointmentController implements Initializable {
         apptTable.setItems(monthlyAppts);
     }
 
+    /**
+     * Displays only appointments in the current week.
+     * @param event Occurs when radio button is clicked.
+     */
     @FXML
     void onClickViewWeek(ActionEvent event) {
 
@@ -398,6 +506,10 @@ public class AppointmentController implements Initializable {
         apptTable.setItems(weeklyAppts);
     }
 
+    /**
+     * Exits the program when the exit button is clicked.
+     * @param event Occurs when the exit button is clicked.
+     */
     @FXML
     public void onClickExit(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit the program?");
