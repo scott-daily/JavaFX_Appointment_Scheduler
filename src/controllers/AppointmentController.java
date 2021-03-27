@@ -31,10 +31,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.WeekFields;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.SplittableRandom;
+import java.util.*;
 
 public class AppointmentController implements Initializable {
 
@@ -399,5 +396,15 @@ public class AppointmentController implements Initializable {
             }
         }
         apptTable.setItems(weeklyAppts);
+    }
+
+    @FXML
+    public void onClickExit(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit the program?");
+        Optional<ButtonType> exitAnswer = alert.showAndWait();
+
+        if (exitAnswer.isPresent() && exitAnswer.get() == ButtonType.OK) {
+            Platform.exit();
+        }
     }
 }

@@ -1,6 +1,7 @@
 package controllers;
 
 import DBLink.*;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
@@ -8,9 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import models.*;
 import utils.ControlData;
@@ -22,6 +21,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.MissingResourceException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -115,7 +115,12 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    public void onClickExit() {
-        System.out.println("Clicked exit");
+    public void onClickExit(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit the program?");
+        Optional<ButtonType> exitAnswer = alert.showAndWait();
+
+        if (exitAnswer.isPresent() && exitAnswer.get() == ButtonType.OK) {
+            Platform.exit();
+        }
     }
 }

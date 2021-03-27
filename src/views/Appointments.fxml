@@ -83,5 +83,10 @@
             <Font size="18.0" />
          </font>
       </Button>
+      <Button layoutX="17.0" layoutY="954.0" mnemonicParsing="false" onAction="#onClickExit" text="Exit">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
