@@ -350,17 +350,22 @@ public class AppointmentController implements Initializable {
     void onClickRemoveAppt(ActionEvent event) throws SQLException {
         if (apptTable.getSelectionModel().getSelectedItem() != null) {
             Appointment selectedAppt = apptTable.getSelectionModel().getSelectedItem();
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete the selected appointment? Appointment with an ID of: " + selectedAppt.getAppointmentID() + ", and type: " + selectedAppt.getType() + " will be removed.");
             alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-            alert.setTitle("Appointment Removal");
-            alert.setContentText("Appointment with an ID of: " + selectedAppt.getAppointmentID() + ", and type: " + selectedAppt.getType() + " was removed.");
-            alert.showAndWait();
+            alert.setTitle("Appointment Removal Confirmation");
+            Optional<ButtonType> deleteResult = alert.showAndWait();
 
-            AppointmentsLink.deleteAppointment(selectedAppt);
-            Appointment.appointmentsList.remove(selectedAppt);
-            Appointment.refreshAppointments();
-            apptTable.setItems(Appointment.appointmentsList);
+            if (deleteResult.isPresent() && deleteResult.get() == ButtonType.OK) {
+                AppointmentsLink.deleteAppointment(selectedAppt);
+                Appointment.appointmentsList.remove(selectedAppt);
+                Appointment.refreshAppointments();
+                apptTable.setItems(Appointment.appointmentsList);
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Warning");
+            alert.setContentText("An appointment must be selected to be removed.");
+            alert.showAndWait();
         }
     }
 

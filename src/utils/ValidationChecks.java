@@ -3,8 +3,16 @@ package utils;
 import models.Appointment;
 import java.time.*;
 
+/**
+ * Class used to store all validation check methods.
+ */
 public class ValidationChecks {
-
+    /**
+     * Method to cehck if a starting and ending LocalDateTime are during EST business hours.
+     * @param startTime The starting time and date.
+     * @param endTime The ending time and date.
+     * @return A boolean value indicating whether or not the times are during business hours.
+     */
     public static Boolean isDuringBusinessHours(LocalDateTime startTime, LocalDateTime endTime) {
 
         int localStartHourEST = ControlData.localToEST(startTime).getHour();
@@ -13,6 +21,13 @@ public class ValidationChecks {
         return localStartHourEST >= 8 && localEndHourEST <= 22;
     }
 
+    /**
+     * Method to check to see whether or not two appointments have overlapping start and end times with an already saved appointment.
+     * @param startDateTime The start time of the appointment to check.
+     * @param endDateTime The end time of the appointment to check.
+     * @param customerID The customer ID to see if that customer has any appointments saved that conflict with the new appointment.
+     * @return A boolean indicating whether the appointments overlap with any of the customers other appointments.
+     */
     public static Boolean isNotOverlapping(LocalDateTime startDateTime, LocalDateTime endDateTime, int customerID) {
 
         LocalDate startingDate = startDateTime.toLocalDate();
@@ -49,6 +64,12 @@ public class ValidationChecks {
         return true;
     }
 
+    /**
+     * Used to check if two dates are the same day.
+     * @param startDate The first date to check.
+     * @param endDate The second date to check.
+     * @return A boolean value indicating whether they are on the same date or not.
+     */
     public static Boolean isSameDate(LocalDate startDate, LocalDate endDate) {
         return startDate.equals(endDate);
     }

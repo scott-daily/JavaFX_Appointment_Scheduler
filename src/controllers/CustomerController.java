@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.SplittableRandom;
 
@@ -225,26 +226,25 @@ public class CustomerController implements Initializable {
     @FXML
     void onClickRemove(ActionEvent event) throws SQLException {
         if (custTableView.getSelectionModel().getSelectedItem() != null) {
-
             Customer selectedCustomer = custTableView.getSelectionModel().getSelectedItem();
 
-            // Remove customer's appointments before removing the customer.
-            for (Appointment appointment : Appointment.appointmentsList) {
-                if (appointment.getCustomerID() == selectedCustomer.getCustomerID()) {
-                    AppointmentsLink.deleteAppointment(appointment);
-                }
-            }
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to remove " + selectedCustomer.getCustomerName() + "? Any associated appointments will also be removed.");
             alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-            alert.setTitle("Customer Removal");
-            alert.setContentText(selectedCustomer.getCustomerName() + " and any associated appointments will be removed.");
-            alert.showAndWait();
+            alert.setTitle("Customer Removal Warning");
+            Optional<ButtonType> deleteResult = alert.showAndWait();
 
-            CustomerLink.deleteCustomer(selectedCustomer);
-            Customer.customersList.remove(selectedCustomer);
-            Customer.refreshCustomers();
-            custTableView.setItems(Customer.customersList);
+            if (deleteResult.isPresent() && deleteResult.get() == ButtonType.OK) {
+                // Remove customer's appointments before removing the customer.
+                for (Appointment appointment : Appointment.appointmentsList) {
+                    if (appointment.getCustomerID() == selectedCustomer.getCustomerID()) {
+                        AppointmentsLink.deleteAppointment(appointment);
+                    }
+                }
+                CustomerLink.deleteCustomer(selectedCustomer);
+                Customer.customersList.remove(selectedCustomer);
+                Customer.refreshCustomers();
+                custTableView.setItems(Customer.customersList);
+            }
         }
     }
     /**
