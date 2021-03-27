@@ -16,7 +16,6 @@ public class ValidationChecks {
     public static Boolean isNotOverlapping(LocalDateTime startDateTime, LocalDateTime endDateTime, int customerID) {
 
         LocalDate startingDate = startDateTime.toLocalDate();
-        //Appointment.refreshAppointments();
 
         for (Appointment appt : Appointment.appointmentsList) {
             if (appt.getCustomerID() == customerID) {

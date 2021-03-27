@@ -186,9 +186,13 @@ public class AppointmentController implements Initializable {
     @FXML
     private DatePicker endDatePick;
 
+    Boolean hasAppointmentSoon = false;
+
     /**
      * Loads the Appointment TableView with all appointments in the database and initializes form controls.  Checks to
      * see if there are any appointments starting within 15 minutes of the associated User ID that just logged in.
+     * Lambda method checks if any appointment with the associated User ID has a starting time within 15 minutes of login.  This is used
+     * to clean up the method and make the code more readable.
      * @param url The location used to resolve relative paths for the root object.
      * @param resourceBundle The resources used to localize the root object.
      */
@@ -228,27 +232,12 @@ public class AppointmentController implements Initializable {
         startTimeBox.setItems(timeList);
         endTimeBox.setItems(timeList);
 
-        Boolean hasAppointmentSoon = false;
+        //Boolean hasAppointmentSoon = false;
 
         if (ControlData.newLogin) {
             ControlData.newLogin = false;
+            Appointment.appointmentsList.forEach((appointment) -> nearAppointmentTime(appointment));
 
-            for (Appointment appointment : Appointment.appointmentsList) {
-                if (appointment.getUserID() == ControlData.getCurrentUser().getUserId()) {
-                    if (appointment.getStart().toLocalDateTime().isAfter(LocalDateTime.now())) {
-                        Duration duration = Duration.between(LocalDateTime.now(), appointment.getStart().toLocalDateTime());
-                        if (duration.toMinutes() < 15) {
-                            hasAppointmentSoon = true;
-                            ControlData.newLoginNoAppt = false;
-                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-                            alert.setTitle("Appointment Notification");
-                            alert.setContentText("Appointment starting within 15 minutes at: " + appointment.getStart() + ", with an appointment ID of: " + appointment.getAppointmentID() + ".");
-                            alert.showAndWait();
-                        }
-                    }
-                }
-            }
         }
 
         if (!hasAppointmentSoon && ControlData.newLoginNoAppt) {
@@ -259,6 +248,23 @@ public class AppointmentController implements Initializable {
             alert.setContentText("There are no appointments for this user starting within 15 minutes.");
             alert.showAndWait();
             hasAppointmentSoon = false;
+        }
+    }
+
+    public void nearAppointmentTime(Appointment appointment) {
+        if (appointment.getUserID() == ControlData.getCurrentUser().getUserId()) {
+            if (appointment.getStart().toLocalDateTime().isAfter(LocalDateTime.now())) {
+                Duration duration = Duration.between(LocalDateTime.now(), appointment.getStart().toLocalDateTime());
+                if (duration.toMinutes() < 15) {
+                    hasAppointmentSoon = true;
+                    ControlData.newLoginNoAppt = false;
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                    alert.setTitle("Appointment Notification");
+                    alert.setContentText("Appointment starting within 15 minutes at: " + appointment.getStart() + ", with an appointment ID of: " + appointment.getAppointmentID() + ".");
+                    alert.showAndWait();
+                }
+            }
         }
     }
 
