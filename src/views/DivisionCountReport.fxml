@@ -12,7 +12,7 @@
           <TableColumn fx:id="divisionCount" prefWidth="150.0" text="Division Count" />
         </columns>
       </TableView>
-      <Label layoutX="257.0" layoutY="34.0" text="Division Count Report">
+      <Label layoutX="216.0" layoutY="39.0" text="Customer Division Count Report">
          <font>
             <Font size="18.0" />
          </font>

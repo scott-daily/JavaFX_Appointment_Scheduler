@@ -277,70 +277,77 @@ public class AppointmentController implements Initializable {
     void onClickSaveAppt(ActionEvent event) throws SQLException {
         apptTable.refresh();
         if (startTimeBox.getValue() != null && endTimeBox.getValue() != null && startDatePick.getValue() != null && endDatePick.getValue() != null && custIdBox.getValue() != null) {
-            LocalTime startTime = startTimeBox.getValue();
-            LocalTime endTime = endTimeBox.getValue();
-            LocalDate startDate = startDatePick.getValue();
-            LocalDate endDate = endDatePick.getValue();
-            LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
-            LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
-            int customerID = custIdBox.getValue().getCustomerID();
-
-            Boolean isSameDate = ValidationChecks.isSameDate(startDate, endDate);
-            Boolean isDuringBusinessHours = ValidationChecks.isDuringBusinessHours(startDateTime, endDateTime);
-            Boolean isNotOverlapping = ValidationChecks.isNotOverlapping(startDateTime, endDateTime, customerID);
-
-            if (isSameDate) {
-                System.out.println("Appt starts and ends on the same date.");
-            } else {
+            if (startTimeBox.getValue().isAfter(endTimeBox.getValue())) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Appointment Date Error");
-                alert.setContentText("Appointment times must be on the same day.");
+                alert.setTitle("Appointment Time Error");
+                alert.setContentText("Start time must be before end time.");
                 alert.showAndWait();
-            }
-            if (isDuringBusinessHours) {
-                System.out.println("Submitted appt is during business hours.");
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Outside Business Hours");
-                alert.setContentText("Appointments must be between 8:00 AM EST and 10:00 PM EST.");
-                alert.showAndWait();
-            }
-            if (isNotOverlapping) {
-                System.out.println("Submitted appt is not overlapping any existing appointments.");
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Overlapping Appointments");
-                alert.setContentText("Customer appointments cannot have overlapping times.");
-                alert.showAndWait();
-            }
+                    LocalTime startTime = startTimeBox.getValue();
+                    LocalTime endTime = endTimeBox.getValue();
+                    LocalDate startDate = startDatePick.getValue();
+                    LocalDate endDate = endDatePick.getValue();
+                    LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
+                    LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
+                    int customerID = custIdBox.getValue().getCustomerID();
 
-            if (isSameDate && isDuringBusinessHours && isNotOverlapping) {
+                    Boolean isSameDate = ValidationChecks.isSameDate(startDate, endDate);
+                    Boolean isDuringBusinessHours = ValidationChecks.isDuringBusinessHours(startDateTime, endDateTime);
+                    Boolean isNotOverlapping = ValidationChecks.isNotOverlapping(startDateTime, endDateTime, customerID);
 
-                Appointment newAppt = new Appointment(generateUniqueID(), titleField.getText(), descriptionField.getText(), locationField.getText(), typeField.getText(), Timestamp.valueOf(startDateTime), Timestamp.valueOf(endDateTime),
-                        Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), custIdBox.getValue().getCustomerID(), userIdBox.getValue().getUserId(), contactBox.getValue().getContactID(), Contact.getContactByID(contactBox.getValue().getContactID()));
+                    if (isSameDate) {
+                        System.out.println("Appt starts and ends on the same date.");
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Appointment Date Error");
+                        alert.setContentText("Appointment times must be on the same day.");
+                        alert.showAndWait();
+                    }
+                    if (isDuringBusinessHours) {
+                        System.out.println("Submitted appt is during business hours.");
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Outside Business Hours");
+                        alert.setContentText("Appointments must be between 8:00 AM EST and 10:00 PM EST.");
+                        alert.showAndWait();
+                    }
+                    if (isNotOverlapping) {
+                        System.out.println("Submitted appt is not overlapping any existing appointments.");
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Overlapping Appointments");
+                        alert.setContentText("Customer appointments cannot have overlapping times.");
+                        alert.showAndWait();
+                    }
 
-                AppointmentsLink.addAppointment(newAppt);
-                Appointment.appointmentsList.add(newAppt);
-                Appointment.refreshAppointments();
-                apptTable.setItems(Appointment.appointmentsList);
+                    if (isSameDate && isDuringBusinessHours && isNotOverlapping) {
 
-                titleField.clear();
-                descriptionField.clear();
-                locationField.clear();
-                typeField.clear();
-                contactBox.getSelectionModel().clearSelection();
-                custIdBox.getSelectionModel().clearSelection();
-                userIdBox.getSelectionModel().clearSelection();
-                startDatePick.getEditor().clear();
-                startDatePick.setPromptText("Start Date");
-                endDatePick.getEditor().clear();
-                endDatePick.setPromptText("End Date");
-                startTimeBox.getSelectionModel().clearSelection();
-                startTimeBox.setPromptText("Start Time");
-                endTimeBox.getSelectionModel().clearSelection();
-                endTimeBox.setPromptText("End Time");
+                        Appointment newAppt = new Appointment(generateUniqueID(), titleField.getText(), descriptionField.getText(), locationField.getText(), typeField.getText(), Timestamp.valueOf(startDateTime), Timestamp.valueOf(endDateTime),
+                                Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), Timestamp.valueOf(LocalDateTime.now()), ControlData.getCurrentUser().getUserName(), custIdBox.getValue().getCustomerID(), userIdBox.getValue().getUserId(), contactBox.getValue().getContactID(), Contact.getContactByID(contactBox.getValue().getContactID()));
 
-                apptTable.refresh();
+                        AppointmentsLink.addAppointment(newAppt);
+                        Appointment.appointmentsList.add(newAppt);
+                        Appointment.refreshAppointments();
+                        apptTable.setItems(Appointment.appointmentsList);
+
+                        titleField.clear();
+                        descriptionField.clear();
+                        locationField.clear();
+                        typeField.clear();
+                        contactBox.getSelectionModel().clearSelection();
+                        custIdBox.getSelectionModel().clearSelection();
+                        userIdBox.getSelectionModel().clearSelection();
+                        startDatePick.getEditor().clear();
+                        startDatePick.setPromptText("Start Date");
+                        endDatePick.getEditor().clear();
+                        endDatePick.setPromptText("End Date");
+                        startTimeBox.getSelectionModel().clearSelection();
+                        startTimeBox.setPromptText("Start Time");
+                        endTimeBox.getSelectionModel().clearSelection();
+                        endTimeBox.setPromptText("End Time");
+
+                        apptTable.refresh();
+                    }
                 }
             }
         else {
