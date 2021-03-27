@@ -3,12 +3,21 @@ package models;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Class used to model an Appointment object.
+ */
 public class User {
     private int userId;
     private String userName;
     private String userPassword;
     public static ObservableList<User> usersList = FXCollections.observableArrayList();
 
+    /**
+     * Constructor to instantiate a new User object.
+     * @param userId The ID of the user.
+     * @param userName The name of the user.
+     * @param userPassword The password of the user.
+     */
     public User(int userId, String userName, String userPassword) {
         this.userId = userId;
         this.userName = userName;

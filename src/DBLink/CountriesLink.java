@@ -4,7 +4,6 @@ import utils.DBConnection;
 import models.Country;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.*;
 
 /**

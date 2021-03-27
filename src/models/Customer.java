@@ -1,14 +1,13 @@
 package models;
 
-import DBLink.AppointmentsLink;
 import DBLink.CustomerLink;
-import javafx.beans.value.ObservableStringValue;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.Timestamp;
-
+/**
+ * Class used to model an Customer object.
+ */
 public class Customer {
 
     private int customerID;
@@ -23,9 +22,26 @@ public class Customer {
     private String lastUpdatedBy;
     private Country country;
     private Division division;
+    /**
+     * ObservableList used to store a master list of all Customer objects.
+     */
     public static ObservableList<Customer> customersList = FXCollections.observableArrayList();
 
-
+    /**
+     * Constructor to instantiate a new Customer object.
+     * @param customerID The customer ID.
+     * @param customerName The customer name.
+     * @param address The customer address.
+     * @param postalCode The customer postal code.
+     * @param phoneNumber The customer phone number.
+     * @param divisionID The customer's first level division.
+     * @param createDate The date the customer was created.
+     * @param createdBy The user that created the customer.
+     * @param lastUpdate When the customer was last updated.
+     * @param lastUpdatedBy Which user last updated the customer.
+     * @param country The Country object associated with the customer.
+     * @param divisionName The Division object associated with the customer.
+     */
     public Customer(int customerID, String customerName, String address, String postalCode, String phoneNumber, int divisionID, Timestamp createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy, Country country, Division divisionName) {
         this.customerID = customerID;
         this.customerName = customerName;
@@ -41,10 +57,17 @@ public class Customer {
         this.division = divisionName;
     }
 
+    /**
+     * Used to obtain a String representation of the customer ID that is stored as an int.
+     * @return A String representing the customer ID.
+     */
     public String toString() {
         return String.valueOf(customerID);
     }
 
+    /**
+     * Method to pull all Customer objects from the database to the Customer model's ObservableList.
+     */
     public static void refreshCustomers() {
         customersList = CustomerLink.getAllCustomers();
     }
@@ -139,13 +162,5 @@ public class Customer {
 
     public void setDivision(Division division) {
         this.division = division;
-    }
-
-    public static ObservableList<Customer> getCustomersList() {
-        return customersList;
-    }
-
-    public static void setCustomersList(ObservableList<Customer> customersList) {
-        Customer.customersList = customersList;
     }
 }

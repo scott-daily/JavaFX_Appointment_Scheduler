@@ -2,12 +2,10 @@ package DBLink;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import models.Appointment;
 import models.Country;
 import models.Customer;
 import models.Division;
 import utils.DBConnection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

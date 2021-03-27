@@ -3,11 +3,11 @@ package models;
 import DBLink.AppointmentsLink;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDateTime;
 
+/**
+ * Class used to model an Appointment object.
+ */
 public class Appointment {
     private int appointmentID;
     private String title;
@@ -24,8 +24,29 @@ public class Appointment {
     private int userID;
     private int contactID;
     private Contact contact;
+    /**
+     * ObservableList used to store a master list of all Appointment objects.
+     */
     public static ObservableList<Appointment> appointmentsList = FXCollections.observableArrayList();
 
+    /**
+     * Constructor to instantiate an Appointment object.
+     * @param appointmentID The appointment ID.
+     * @param title The appointment title.
+     * @param description The appointment description.
+     * @param location The appointment location.
+     * @param type The appointment type.
+     * @param start The appointment start time and date.
+     * @param end The appointment end time and date.
+     * @param createDate The appointment creation date.
+     * @param createBy Which user made the appointment.
+     * @param lastUpdate When was last updated the appointment.
+     * @param updateBy Who last updated the appointment.
+     * @param customerID The customer ID associated with the appointment.
+     * @param userID The user ID associated with the appointment.
+     * @param contactID The contact ID associated with the appointment.
+     * @param contact The Contact object associated with the appointment.
+     */
     public Appointment(int appointmentID, String title, String description, String location, String type, Timestamp start, Timestamp end, Timestamp createDate, String createBy, Timestamp lastUpdate, String updateBy, int customerID, int userID, int contactID, Contact contact) {
         this.appointmentID = appointmentID;
         this.title = title;
@@ -52,6 +73,9 @@ public class Appointment {
         this.appointmentID = appointmentID;
     }
 
+    /**
+     * Method to pull all Appointment objects from the database to the Appointment model's ObservableList.
+     */
     public static void refreshAppointments() {
         appointmentsList = AppointmentsLink.getAllAppointments();
     }
@@ -170,6 +194,11 @@ public class Appointment {
         return contact;
     }
 
+    /**
+     * Method to return a Customer object by inputting it's associated ID number.
+     * @param customerID The ID of the customer to search for.
+     * @return The Customer object matching the given customer ID.
+     */
     public Customer getCustomerByID(int customerID) {
         for (Customer customer : Customer.customersList) {
             if (customer.getCustomerID() == customerID) {
@@ -178,7 +207,11 @@ public class Appointment {
         }
         return null;
     }
-
+    /**
+     * Method to return a User object by inputting it's associated ID number.
+     * @param userID The ID of the User to search for.
+     * @return The User object matching the given User ID.
+     */
     public User getUserByID(int userID) {
         for (User user : User.usersList) {
             if (user.getUserId() == userID) {

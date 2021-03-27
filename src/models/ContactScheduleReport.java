@@ -3,10 +3,12 @@ package models;
 import DBLink.ReportsLink;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Class to model a contact schedule report.
+ */
 public class ContactScheduleReport {
     private String contact;
     private int appointmentID;
@@ -18,6 +20,17 @@ public class ContactScheduleReport {
     private int customerID;
     public static ObservableList<ContactScheduleReport> contactScheduleList = FXCollections.observableArrayList();
 
+    /**
+     * Constructor method to instantiate a new ContactScheduleReport object.
+     * @param contact The contact name.
+     * @param appointmentID The appointment ID.
+     * @param title The appointment title.
+     * @param type The appointment type.
+     * @param description The appointment description.
+     * @param start The appointment start time and date.
+     * @param end The appointment end time and date.
+     * @param customerID The customer ID associated with the appointment.
+     */
     public ContactScheduleReport(String contact, int appointmentID, String title, String type, String description, Timestamp start, Timestamp end, int customerID) {
         this.contact = contact;
         this.appointmentID = appointmentID;
@@ -29,6 +42,10 @@ public class ContactScheduleReport {
         this.customerID = customerID;
     }
 
+    /**
+     * Method to pull all ContactScheduleReport objects from the database to the ContactScheduleReport model's ObservableList.
+     * @throws SQLException
+     */
     public static void refreshContactSchedule() throws SQLException {
         contactScheduleList = ReportsLink.getContactScheduleReport();
     }

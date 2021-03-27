@@ -18,7 +18,6 @@ import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import models.*;
 import utils.ControlData;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;

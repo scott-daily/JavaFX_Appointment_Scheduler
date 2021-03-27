@@ -4,7 +4,6 @@ import utils.DBConnection;
 import models.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.*;
 /**
  *  Manages SQL queries for user related data.

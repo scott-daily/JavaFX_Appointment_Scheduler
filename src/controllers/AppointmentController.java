@@ -13,14 +13,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import models.*;
 import utils.ControlData;
 import utils.ValidationChecks;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;

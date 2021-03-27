@@ -13,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import models.*;
 import utils.ControlData;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;

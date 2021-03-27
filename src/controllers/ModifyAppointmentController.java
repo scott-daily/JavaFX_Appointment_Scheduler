@@ -18,7 +18,6 @@ import models.Customer;
 import models.User;
 import utils.ControlData;
 import utils.ValidationChecks;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;

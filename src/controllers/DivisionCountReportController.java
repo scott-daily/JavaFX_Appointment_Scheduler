@@ -11,10 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import models.ContactScheduleReport;
 import models.DivisionCountReport;
-import models.NumberAppointmentTypeReport;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;

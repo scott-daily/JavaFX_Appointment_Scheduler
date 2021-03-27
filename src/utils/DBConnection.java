@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Class used to connect to the MySQl database.
+ */
 public class DBConnection {
 
     private static final String protocol = "jdbc";
@@ -17,6 +20,10 @@ public class DBConnection {
     private static final String username = "U08dzx";
     private static Connection dbConnection = null;
 
+    /**
+     * Method to start a connection to the database.
+     * @return
+     */
     public static Connection openConnection() {
         try {
             Class.forName(mySQLJBCDriver);
@@ -29,10 +36,17 @@ public class DBConnection {
         return dbConnection;
     }
 
+    /**
+     * Method that returns a dbConnection object to be used.
+     * @return
+     */
     public static Connection getConnection() {
         return dbConnection;
     }
 
+    /**
+     * Method to close a connection at program exit.
+     */
     public static void closeConnection() {
         try {
             dbConnection.close();
