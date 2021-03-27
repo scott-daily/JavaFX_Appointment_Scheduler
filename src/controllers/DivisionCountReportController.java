@@ -20,18 +20,31 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Controls the division count schedule report screen and loads data into the tableview.
+ */
 public class DivisionCountReportController implements Initializable {
-
+    /**
+     * TableView to hold all DivisionCountReport data.
+     */
     @FXML
     private TableView<DivisionCountReport> divCountTable;
-
+    /**
+     * TableColumn to hold first level division data.
+     */
     @FXML
     private TableColumn<DivisionCountReport, String> division;
-
+    /**
+     * TableColumn to hold the division count.
+     */
     @FXML
     private TableColumn<DivisionCountReport, Integer> divisionCount;
 
-
+    /**
+     * Loads the Report TableView with all DivisionCountReport models.
+     * @param location The location used to resolve relative paths for the root object.
+     * @param resources The resources used to localize the root object.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -45,6 +58,11 @@ public class DivisionCountReportController implements Initializable {
         divCountTable.setItems(DivisionCountReport.divisionCountList);
     }
 
+    /**
+     * Goes back to the main report screen.
+     * @param event Occurs when the back button is clicked.
+     * @throws IOException Throws if error occurs during FXML loading.
+     */
     @FXML
     void onClickBack(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/views/Reports.fxml"));

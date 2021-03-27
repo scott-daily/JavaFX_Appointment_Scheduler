@@ -29,49 +29,79 @@ import java.util.ResourceBundle;
 import java.util.SplittableRandom;
 
 public class CustomerController implements Initializable {
-
+    /**
+     * TextField to hold a customer ID.
+     */
     @FXML
     private TextField idField;
-
+    /**
+     * TextField to hold a customer name.
+     */
     @FXML
     private TextField nameField;
-
+    /**
+     * TextField to hold a customer address.
+     */
     @FXML
     private TextField addressField;
-
+    /**
+     * TextField to hold a customer postal code.
+     */
     @FXML
     private TextField postalField;
-
+    /**
+     * TextField to hold a customer phone number.
+     */
     @FXML
     private TextField phoneField;
-
+    /**
+     * ComboBox to hold a country.
+     */
     @FXML
     private ComboBox<Country> countryCombo;
-
+    /**
+     * ComboBox to hold a first level division.
+     */
     @FXML
     private ComboBox<Division> divisionCombo;
-
+    /**
+     * TableView to hold customer data.
+     */
     @FXML
     private TableView<Customer> custTableView;
-
+    /**
+     * TableColumn to hold a customer name.
+     */
     @FXML
     private TableColumn<Customer, String> nameCol;
-
+    /**
+     * TableColumn to hold a customer address.
+     */
     @FXML
     private TableColumn<Customer, String> addressCol;
-
+    /**
+     * TableColumn to hold a customer postal code.
+     */
     @FXML
     private TableColumn<Customer, String> postalCol;
-
+    /**
+     * TableColumn to hold a customer phone number.
+     */
     @FXML
     private TableColumn<Customer, String> phoneCol;
-
+    /**
+     * TableColumn to hold a customer country.
+     */
     @FXML
     private TableColumn<Customer, String> countryCol;
-
+    /**
+     * TableColumn to hold a customer first level division.
+     */
     @FXML
     private TableColumn<Customer, String> firstLevelCol;
-
+    /**
+     * TableColumn to hold a customer ID.
+     */
     @FXML
     private TableColumn<Customer, Integer> custIdCol;
 
@@ -99,6 +129,11 @@ public class CustomerController implements Initializable {
         divisionCombo.setItems(Division.divisionsList);
     }
 
+    /**
+     * Goes back to the main report screen.
+     * @param event Occurs when the cancel button is clicked.
+     * @throws IOException Throws if error occurs during FXML loading.
+     */
     @FXML
     void onClickCancel(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/views/Appointments.fxml"));
@@ -110,6 +145,10 @@ public class CustomerController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Changes the first level division when a user changes the selected country combo box value.
+     * @param event Occurs when a new country is selected.
+     */
     @FXML
     public void onSelectChangeDiv(ActionEvent event){
         Country selectedCountry = countryCombo.getValue();
@@ -150,6 +189,10 @@ public class CustomerController implements Initializable {
         return randomID;
     }
 
+    /**
+     * Saves the customer that is in the form after checking to ensure fields are correctly filled out.
+     * @param event Occurs when save button is clicked.
+     */
     @FXML
     void onClickSave(ActionEvent event) {
         if (countryCombo.getValue() != null && divisionCombo.getValue() != null && nameField.getText() != null && addressField.getText() != null && postalField.getText() != null && phoneField.getText() != null) {
@@ -176,6 +219,10 @@ public class CustomerController implements Initializable {
         custTableView.refresh();
     }
 
+    /**
+     * Removes the customer that is selected after first removing all associated appointments.
+     * @param event Occurs when remove button is clicked with a customer selected in the TableView.
+     */
     @FXML
     void onClickRemove(ActionEvent event) throws SQLException {
         if (custTableView.getSelectionModel().getSelectedItem() != null) {
@@ -201,7 +248,10 @@ public class CustomerController implements Initializable {
             custTableView.setItems(Customer.customersList);
         }
     }
-
+    /**
+     * Modifies the customer that is selected.
+     * @param event Occurs when modify button is clicked with a customer selected in the TableView.
+     */
     @FXML
     void onClickModify(ActionEvent event) throws SQLException, IOException {
         if (custTableView.getSelectionModel().getSelectedItem() != null) {

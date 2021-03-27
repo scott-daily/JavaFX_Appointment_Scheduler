@@ -185,7 +185,9 @@ public class AppointmentController implements Initializable {
      */
     @FXML
     private DatePicker endDatePick;
-
+    /**
+     * Tracks whether user has an appointment starting soon.
+     */
     Boolean hasAppointmentSoon = false;
 
     /**
@@ -232,12 +234,9 @@ public class AppointmentController implements Initializable {
         startTimeBox.setItems(timeList);
         endTimeBox.setItems(timeList);
 
-        //Boolean hasAppointmentSoon = false;
-
         if (ControlData.newLogin) {
             ControlData.newLogin = false;
             Appointment.appointmentsList.forEach((appointment) -> nearAppointmentTime(appointment));
-
         }
 
         if (!hasAppointmentSoon && ControlData.newLoginNoAppt) {
@@ -251,6 +250,11 @@ public class AppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Checks an appointment with associated user ID to find out if there are any appointments
+     * saved that have a starting time within 15 minutes of the user login.
+     * @param appointment
+     */
     public void nearAppointmentTime(Appointment appointment) {
         if (appointment.getUserID() == ControlData.getCurrentUser().getUserId()) {
             if (appointment.getStart().toLocalDateTime().isAfter(LocalDateTime.now())) {

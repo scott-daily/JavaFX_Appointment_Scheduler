@@ -19,35 +19,62 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+/**
+ * Controls the contact schedule report screen and loads data into the tableview.
+ */
 public class ContactScheduleReportController implements Initializable {
-
+    /**
+     * Table to hold all ContactScheduleReport objects.
+     */
     @FXML
     private TableView<ContactScheduleReport> reportTable;
-
+    /**
+     * TableColumn to hold contacts
+     */
     @FXML
     private TableColumn<ContactScheduleReport, String> contactCol;
-
+    /**
+     * TableColumn to hold appointment ID's.
+     */
     @FXML
     private TableColumn<ContactScheduleReport, Integer> appointmentID;
-
+    /**
+     * TableColumn to hold appointment title's.
+     */
     @FXML
     private TableColumn<ContactScheduleReport, String> title;
-
+    /**
+     * TableColumn to hold appointment types;
+     */
     @FXML
     private TableColumn<ContactScheduleReport, String> type;
-
+    /**
+     * TableColumn to hold appointment descriptions;
+     */
     @FXML
     private TableColumn<ContactScheduleReport, String> description;
 
+    /**
+     * TableColumn to hold appointment start time and dates;
+     */
     @FXML
     private TableColumn<ContactScheduleReport, LocalDateTime> start;
-
+    /**
+     * TableColumn to hold appointment end time and dates;
+     */
     @FXML
     private TableColumn<ContactScheduleReport, LocalDateTime> end;
-
+    /**
+     * TableColumn to hold appointment customer ID's;
+     */
     @FXML
     private TableColumn<ContactScheduleReport, Integer> customerID;
 
+    /**
+     * Loads the Report TableView with all ContactScheduleReport models.
+     * @param location The location used to resolve relative paths for the root object.
+     * @param resources The resources used to localize the root object.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -69,6 +96,11 @@ public class ContactScheduleReportController implements Initializable {
         reportTable.setItems(ContactScheduleReport.contactScheduleList);
     }
 
+    /**
+     * Goes back to the main report screen.
+     * @param event Occurs when the back button is clicked.
+     * @throws IOException Throws if error occurs during FXML loading.
+     */
     @FXML
     void onClickBack(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/views/Reports.fxml"));
