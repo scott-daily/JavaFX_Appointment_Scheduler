@@ -17,6 +17,9 @@ Can run the program by loading the project folder into the IDE and hitting the p
 The additional report added was a count of how many of each division are represented
 by the current customers.
 
+Lambda #1 located in CustomerController.java in the comment for the initialize method.
+Lambda #2 located in AppointmentController.java in the comment for the initialize method.
+
 
 
 

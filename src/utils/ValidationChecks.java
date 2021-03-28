@@ -34,7 +34,9 @@ public class ValidationChecks {
 
         for (Appointment appt : Appointment.appointmentsList) {
             if (appt.getCustomerID() == customerID) {
+                System.out.println("Same ID " + customerID);
                 if (appt.getAppointmentID() != ControlData.appointmentID) {
+                    System.out.println("appt ID " + appt.getAppointmentID() + " != " + ControlData.appointmentID);
                     LocalDate startingDateStoredAppt = appt.getStart().toLocalDateTime().toLocalDate();
                     if (startingDate.equals(startingDateStoredAppt)) {
                         LocalTime startTime = startDateTime.toLocalTime();
@@ -42,15 +44,31 @@ public class ValidationChecks {
                         LocalTime savedStartTime = appt.getStart().toLocalDateTime().toLocalTime();
                         LocalTime savedEndTime = appt.getEnd().toLocalDateTime().toLocalTime();
 
-                        if (startTime.isAfter(savedStartTime) && (endTime.isBefore(savedEndTime))) {
+                        if (startTime.isAfter(savedStartTime) && endTime.isBefore(savedEndTime)) {
                             return false;
                         }
 
-                        if (startTime.isBefore(savedStartTime) && (endTime.isBefore(savedEndTime))) {
+                        if (startTime.isBefore(savedStartTime) && endTime.isBefore(savedEndTime)) {
+                            return false;
+                        }
+
+                        if (startTime.equals(savedStartTime) && endTime.equals(savedEndTime)) {
+                            return false;
+                        }
+
+                        if (startTime.isBefore(savedStartTime) && endTime.equals(savedEndTime)) {
+                            return false;
+                        }
+
+                        if (startTime.isAfter(savedStartTime) && endTime.equals(savedEndTime)) {
                             return false;
                         }
 
                         if (startTime.isAfter(savedStartTime) && endTime.isAfter(savedEndTime) && startTime.isBefore(savedEndTime)) {
+                            return false;
+                        }
+
+                        if (startTime.equals(savedStartTime) && endTime.isAfter(savedEndTime)) {
                             return false;
                         }
 
