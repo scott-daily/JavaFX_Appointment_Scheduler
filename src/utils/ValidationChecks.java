@@ -17,7 +17,6 @@ public class ValidationChecks {
 
         int localStartHourEST = ControlData.localToEST(startTime).getHour();
         int localEndHourEST = ControlData.localToEST(endTime).getHour();
-        int localStartMinuteEST = ControlData.localToEST(startTime).getMinute();
         int localEndMinuteEST = ControlData.localToEST(endTime).getMinute();
 
         if (localStartHourEST >= 8 && localEndHourEST < 22 && localStartHourEST < 22) {
