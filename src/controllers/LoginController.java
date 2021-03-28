@@ -107,6 +107,13 @@ public class LoginController implements Initializable {
         Country.countriesList.addAll(CountriesLink.getAllCountries());
         Customer.customersList.addAll(CustomerLink.getAllCustomers());
 
+        if (username.getText().trim().isEmpty()) {
+            ResourceBundle rb = ResourceBundle.getBundle("utils/Properties", Locale.getDefault());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(rb.getString("noUserNameError"));
+            alert.showAndWait();
+        }
+
         for (User user : User.usersList) {
             if (user.getUserName().equals(username.getText())) {
                 if (user.getUserPassword().equals(password.getText())) {
@@ -134,6 +141,11 @@ public class LoginController implements Initializable {
                     writer.write(logEntry);
                     writer.write('\n');
                     writer.close();
+
+                    ResourceBundle rb = ResourceBundle.getBundle("utils/Properties", Locale.getDefault());
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText(rb.getString("invalidPasswordError"));
+                    alert.showAndWait();
                 }
             }
         }
@@ -144,7 +156,8 @@ public class LoginController implements Initializable {
      */
     @FXML
     public void onClickExit(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit the program?");
+        ResourceBundle rb = ResourceBundle.getBundle("utils/Properties", Locale.getDefault());
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, rb.getString("exitCheck"));
         Optional<ButtonType> exitAnswer = alert.showAndWait();
 
         if (exitAnswer.isPresent() && exitAnswer.get() == ButtonType.OK) {
