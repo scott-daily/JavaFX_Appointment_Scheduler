@@ -383,6 +383,11 @@ public class AppointmentController implements Initializable {
                 alert.setTitle("Appointment Time Error");
                 alert.setContentText("Start time must be before end time.");
                 alert.showAndWait();
+            } else if (startTimeBox.getValue().equals(endTimeBox.getValue())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Appointment Time Error");
+                alert.setContentText("Start time cannot be equal to end time.");
+                alert.showAndWait();
             } else {
                     LocalTime startTime = startTimeBox.getValue();
                     LocalTime endTime = endTimeBox.getValue();

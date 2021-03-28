@@ -17,8 +17,16 @@ public class ValidationChecks {
 
         int localStartHourEST = ControlData.localToEST(startTime).getHour();
         int localEndHourEST = ControlData.localToEST(endTime).getHour();
+        int localStartMinuteEST = ControlData.localToEST(startTime).getMinute();
+        int localEndMinuteEST = ControlData.localToEST(endTime).getMinute();
 
-        return localStartHourEST >= 8 && localEndHourEST <= 22;
+        if (localStartHourEST >= 8 && localEndHourEST < 22 && localStartHourEST < 22) {
+            return true;
+        } else if (localStartHourEST >= 8 && localEndHourEST == 22) {
+            return localEndMinuteEST == 0;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -34,9 +42,7 @@ public class ValidationChecks {
 
         for (Appointment appt : Appointment.appointmentsList) {
             if (appt.getCustomerID() == customerID) {
-                System.out.println("Same ID " + customerID);
                 if (appt.getAppointmentID() != ControlData.appointmentID) {
-                    System.out.println("appt ID " + appt.getAppointmentID() + " != " + ControlData.appointmentID);
                     LocalDate startingDateStoredAppt = appt.getStart().toLocalDateTime().toLocalDate();
                     if (startingDate.equals(startingDateStoredAppt)) {
                         LocalTime startTime = startDateTime.toLocalTime();
@@ -48,7 +54,7 @@ public class ValidationChecks {
                             return false;
                         }
 
-                        if (startTime.isBefore(savedStartTime) && endTime.isBefore(savedEndTime)) {
+                        if (startTime.isBefore(savedStartTime) && endTime.isBefore(savedEndTime) && endTime.isAfter(savedStartTime)) {
                             return false;
                         }
 
