@@ -1,6 +1,7 @@
 package controllers;
 
 import DBLink.AppointmentsLink;
+import DBLink.CustomerLink;
 import models.Appointment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,14 +20,14 @@ import javafx.stage.Stage;
 import models.*;
 import utils.ControlData;
 import utils.ValidationChecks;
+
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 import java.util.*;
 
@@ -234,6 +235,7 @@ public class AppointmentController implements Initializable {
 
         if (ControlData.newLogin) {
             ControlData.newLogin = false;
+            Customer.customersList.addAll(CustomerLink.getAllCustomers());
             Appointment.appointmentsList.forEach((appointment) -> nearAppointmentTime(appointment));
         }
 

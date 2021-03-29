@@ -18,10 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Class to control all login related actions.
@@ -88,7 +85,7 @@ public class LoginController implements Initializable {
         regionLabel.setText(zoneId.toString());
 
     }
-
+    boolean firstClick = true;
     /**
      * Pulls data out of database into model list to be accessed later. Stores login attempts into a text file to examine later.
      * @param actionEvent Occurs when login button is clicked.
@@ -97,15 +94,14 @@ public class LoginController implements Initializable {
     @FXML
     public void onClickLogin(ActionEvent actionEvent) throws IOException {
 
-        ControlData.newLogin = true;
-        ControlData.newLoginNoAppt = true;
-
-        User.usersList.addAll(UsersLink.getAllUsers());
-        Contact.contactsList.addAll(ContactLink.getAllContacts());
-        Appointment.appointmentsList.addAll(AppointmentsLink.getAllAppointments());
-        Division.divisionsList.addAll(DivisionLink.getAllDivisions());
-        Country.countriesList.addAll(CountriesLink.getAllCountries());
-        Customer.customersList.addAll(CustomerLink.getAllCustomers());
+        if (firstClick) {
+            User.usersList.addAll(UsersLink.getAllUsers());
+            Contact.contactsList.addAll(ContactLink.getAllContacts());
+            Appointment.appointmentsList.addAll(AppointmentsLink.getAllAppointments());
+            Division.divisionsList.addAll(DivisionLink.getAllDivisions());
+            Country.countriesList.addAll(CountriesLink.getAllCountries());
+            firstClick = false;
+        }
 
         if (username.getText().trim().isEmpty()) {
             ResourceBundle rb = ResourceBundle.getBundle("utils/Properties", Locale.getDefault());
@@ -114,10 +110,34 @@ public class LoginController implements Initializable {
             alert.showAndWait();
         }
 
+        // Create list of usernames to check for non-existent user login
+        List<String> userNames = new ArrayList<>();
+
+        for (User user: User.usersList) {
+            userNames.add(user.getUserName());
+        }
+        // Track login attempts even when login attempt is with an invalid username.
+        if (!userNames.contains(username.getText())) {
+            FileWriter writer = new FileWriter("login_activity.txt", true);
+            ZonedDateTime utc = ZonedDateTime.now(ZoneOffset.UTC);
+            String logEntry = "Unknown user attempted to login with the username: " + username.getText() + ", at: " + utc.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " UTC";
+            writer.write(logEntry);
+            writer.write('\n');
+            writer.close();
+
+            ResourceBundle rb = ResourceBundle.getBundle("utils/Properties", Locale.getDefault());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(rb.getString("userDoesntExist"));
+            alert.showAndWait();
+        }
+
         for (User user : User.usersList) {
             if (user.getUserName().equals(username.getText())) {
                 if (user.getUserPassword().equals(password.getText())) {
                     ControlData.setCurrentUser(user);
+                    ControlData.newLogin = true;
+                    ControlData.newLoginNoAppt = true;
+
                     FileWriter writer = new FileWriter("login_activity.txt", true);
                     ZonedDateTime utc = ZonedDateTime.now(ZoneOffset.UTC);
                     String logEntry = "User " + user.getUserName() + " successfully logged in at " + utc.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " UTC";
@@ -125,7 +145,7 @@ public class LoginController implements Initializable {
                     writer.write('\n');
                     writer.close();
 
-                    // Load Appointments view
+                    // Load Appointments view if user & password match existing user in database
 
                     Parent root = FXMLLoader.load(getClass().getResource("/views/Appointments.fxml"));
                     Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -134,6 +154,7 @@ public class LoginController implements Initializable {
                     stage.setScene(scene);
                     stage.centerOnScreen();
                     stage.show();
+                    break;
                 } else {
                     FileWriter writer = new FileWriter("login_activity.txt", true);
                     ZonedDateTime utc = ZonedDateTime.now(ZoneOffset.UTC);

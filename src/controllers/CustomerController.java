@@ -116,7 +116,7 @@ public class CustomerController implements Initializable {
      */
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
-
+        Customer.refreshCustomers();
         custIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
