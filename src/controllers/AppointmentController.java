@@ -20,14 +20,11 @@ import javafx.stage.Stage;
 import models.*;
 import utils.ControlData;
 import utils.ValidationChecks;
-
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 import java.util.*;
 
