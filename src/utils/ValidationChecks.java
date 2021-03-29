@@ -57,6 +57,10 @@ public class ValidationChecks {
                             return false;
                         }
 
+                        if (startTime.equals(savedStartTime) && endTime.isBefore(savedEndTime)) {
+                            return false;
+                        }
+
                         if (startTime.equals(savedStartTime) && endTime.equals(savedEndTime)) {
                             return false;
                         }
