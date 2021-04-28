@@ -188,7 +188,7 @@ public class AppointmentController implements Initializable {
 
     /**
      * Loads the Appointment TableView with all appointments in the database and initializes form controls.  Checks to
-     * see if there are any appointments starting within 15 minutes of the associated User ID that just logged in.
+     * see if there are any appointments starting within 15 minutes for the associated User ID that just logged in.
      * Lambda method checks if any appointment with the associated User ID has a starting time within 15 minutes of login.  This is used
      * to clean up the method and make the code more readable.
      * @param url The location used to resolve relative paths for the root object.
